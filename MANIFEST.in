@@ -1,0 +1,31 @@
+include README.md
+include LICENSE
+include CHANGELOG.md
+include pyproject.toml
+
+# Include all Python source files
+recursive-include IoM *.py
+recursive-include IoM *.pyi
+
+# Include protocol buffer files
+recursive-include IoM/proto *.py
+recursive-include IoM/proto *.pyi
+
+# Include package data
+recursive-include IoM *.json
+recursive-include IoM *.yaml
+recursive-include IoM *.yml
+
+# Exclude development and test files
+exclude generate.py
+exclude .gitignore
+exclude .pre-commit-config.yaml
+recursive-exclude tests *
+recursive-exclude .pytest_cache *
+recursive-exclude __pycache__ *
+recursive-exclude *.py[co] *
+
+# Exclude build artifacts
+exclude build
+exclude dist
+recursive-exclude *.egg-info *
