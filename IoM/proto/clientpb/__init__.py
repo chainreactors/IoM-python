@@ -13,6 +13,7 @@ __all__ = (
     "Bin",
     "BindPipeline",
     "BuildConfig",
+    "BuildResources",
     "Cert",
     "CertificateSubject",
     "Certs",
@@ -22,6 +23,7 @@ __all__ = (
     "Contexts",
     "CtrlPipeline",
     "Dll2Shellcode",
+    "DockerBuildConfig",
     "Empty",
     "Encryption",
     "Event",
@@ -29,6 +31,7 @@ __all__ = (
     "Exe2Shellcode",
     "File",
     "Files",
+    "GithubActionBuildConfig",
     "GithubWorkflow",
     "GithubWorkflowConfig",
     "GithubWorkflows",
@@ -58,6 +61,8 @@ __all__ = (
     "RemAgent",
     "RemAgents",
     "RemLog",
+    "ResourceEntry",
+    "SaasBuildConfig",
     "Secure",
     "Session",
     "SessionRequest",
@@ -94,7 +99,7 @@ from pydantic.dataclasses import dataclass
 
 from ..message_pool import default_message_pool
 
-_COMPILER_VERSION = "0.8.0"
+_COMPILER_VERSION = "0.9.0"
 betterproto2.check_compiler_version(_COMPILER_VERSION)
 
 
@@ -294,6 +299,13 @@ default_message_pool.register_message("clientpb", "BindPipeline", BindPipeline)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class BuildConfig(betterproto2.Message):
+    """
+
+
+    Oneofs:
+        - source_config:
+    """
+
     build_name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -302,55 +314,58 @@ class BuildConfig(betterproto2.Message):
         2, betterproto2.TYPE_STRING
     )
 
-    profile_name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+    target: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         3, betterproto2.TYPE_STRING
     )
 
-    target: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+    source: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         4, betterproto2.TYPE_STRING
     )
 
-    type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+    profile_name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         5, betterproto2.TYPE_STRING
     )
 
-    inputs: "dict[str, str]" = betterproto2.field(
-        6,
-        betterproto2.TYPE_MAP,
-        map_meta=betterproto2.map_meta(
-            betterproto2.TYPE_STRING, betterproto2.TYPE_STRING
-        ),
-    )
-    """
-    Workflow inputs
-    """
-
-    params_bytes: "bytes" = betterproto2.field(7, betterproto2.TYPE_BYTES)
-
-    bin: "bytes" = betterproto2.field(8, betterproto2.TYPE_BYTES)
-
     artifact_id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
-        betterproto2.field(9, betterproto2.TYPE_UINT32)
+        betterproto2.field(6, betterproto2.TYPE_UINT32)
     )
 
-    source: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
-        10, betterproto2.TYPE_STRING
+    malefic_config: "bytes" = betterproto2.field(7, betterproto2.TYPE_BYTES)
+
+    prelude_config: "bytes" = betterproto2.field(8, betterproto2.TYPE_BYTES)
+
+    resources: "BuildResources | None" = betterproto2.field(
+        9, betterproto2.TYPE_MESSAGE, optional=True
     )
 
-    proxy: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
-        11, betterproto2.TYPE_STRING
+    docker: "DockerBuildConfig | None" = betterproto2.field(
+        10, betterproto2.TYPE_MESSAGE, optional=True, group="source_config"
     )
 
-    docker_remote_host: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
-        12, betterproto2.TYPE_STRING
+    github_action: "GithubActionBuildConfig | None" = betterproto2.field(
+        11, betterproto2.TYPE_MESSAGE, optional=True, group="source_config"
     )
 
-    github: "GithubWorkflowConfig | None" = betterproto2.field(
-        13, betterproto2.TYPE_MESSAGE, optional=True
+    saas: "SaasBuildConfig | None" = betterproto2.field(
+        12, betterproto2.TYPE_MESSAGE, optional=True, group="source_config"
     )
+
+    @model_validator(mode="after")
+    def check_oneof(cls, values):
+        return cls._validate_field_groups(values)
 
 
 default_message_pool.register_message("clientpb", "BuildConfig", BuildConfig)
+
+
+@dataclass(eq=False, repr=False, config={"extra": "forbid"})
+class BuildResources(betterproto2.Message):
+    entries: "list[ResourceEntry]" = betterproto2.field(
+        1, betterproto2.TYPE_MESSAGE, repeated=True
+    )
+
+
+default_message_pool.register_message("clientpb", "BuildResources", BuildResources)
 
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
@@ -571,6 +586,22 @@ default_message_pool.register_message("clientpb", "DLL2Shellcode", Dll2Shellcode
 
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
+class DockerBuildConfig(betterproto2.Message):
+    remote_host: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        1, betterproto2.TYPE_STRING
+    )
+
+    volumes: "list[typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]]" = betterproto2.field(
+        2, betterproto2.TYPE_STRING, repeated=True
+    )
+
+
+default_message_pool.register_message(
+    "clientpb", "DockerBuildConfig", DockerBuildConfig
+)
+
+
+@dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Empty(betterproto2.Message):
     pass
 
@@ -728,6 +759,40 @@ class Files(betterproto2.Message):
 
 
 default_message_pool.register_message("clientpb", "Files", Files)
+
+
+@dataclass(eq=False, repr=False, config={"extra": "forbid"})
+class GithubActionBuildConfig(betterproto2.Message):
+    owner: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        1, betterproto2.TYPE_STRING
+    )
+
+    repo: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        2, betterproto2.TYPE_STRING
+    )
+
+    token: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        3, betterproto2.TYPE_STRING
+    )
+
+    workflow_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        4, betterproto2.TYPE_STRING
+    )
+
+    inputs: "dict[str, str]" = betterproto2.field(
+        5,
+        betterproto2.TYPE_MAP,
+        map_meta=betterproto2.map_meta(
+            betterproto2.TYPE_STRING, betterproto2.TYPE_STRING
+        ),
+    )
+
+    is_remove: "bool" = betterproto2.field(6, betterproto2.TYPE_BOOL)
+
+
+default_message_pool.register_message(
+    "clientpb", "GithubActionBuildConfig", GithubActionBuildConfig
+)
 
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
@@ -1527,6 +1592,40 @@ class RemLog(betterproto2.Message):
 
 
 default_message_pool.register_message("clientpb", "RemLog", RemLog)
+
+
+@dataclass(eq=False, repr=False, config={"extra": "forbid"})
+class ResourceEntry(betterproto2.Message):
+    filename: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        1, betterproto2.TYPE_STRING
+    )
+
+    content: "bytes" = betterproto2.field(2, betterproto2.TYPE_BYTES)
+
+
+default_message_pool.register_message("clientpb", "ResourceEntry", ResourceEntry)
+
+
+@dataclass(eq=False, repr=False, config={"extra": "forbid"})
+class SaasBuildConfig(betterproto2.Message):
+    url: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        1, betterproto2.TYPE_STRING
+    )
+
+    token: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        2, betterproto2.TYPE_STRING
+    )
+
+    headers: "dict[str, str]" = betterproto2.field(
+        3,
+        betterproto2.TYPE_MAP,
+        map_meta=betterproto2.map_meta(
+            betterproto2.TYPE_STRING, betterproto2.TYPE_STRING
+        ),
+    )
+
+
+default_message_pool.register_message("clientpb", "SaasBuildConfig", SaasBuildConfig)
 
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})

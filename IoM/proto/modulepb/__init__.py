@@ -14,6 +14,8 @@ __all__ = (
     "CurlRequest",
     "DownloadRequest",
     "DownloadResponse",
+    "DriveInfo",
+    "EnumDriversResponse",
     "ExecRequest",
     "ExecResponse",
     "ExecuteAddon",
@@ -39,6 +41,8 @@ __all__ = (
     "PipeRequest",
     "Process",
     "PsResponse",
+    "PtyRequest",
+    "PtyResponse",
     "Register",
     "Registry",
     "RegistryRequest",
@@ -53,8 +57,6 @@ __all__ = (
     "ServiceRequest",
     "ServiceStatus",
     "ServicesResponse",
-    "ShellRequest",
-    "ShellResponse",
     "SockTabEntry",
     "Suicide",
     "Switch",
@@ -79,7 +81,7 @@ from pydantic.dataclasses import dataclass
 
 from ..message_pool import default_message_pool
 
-_COMPILER_VERSION = "0.8.0"
+_COMPILER_VERSION = "0.9.0"
 betterproto2.check_compiler_version(_COMPILER_VERSION)
 
 
@@ -269,6 +271,53 @@ class DownloadResponse(betterproto2.Message):
 
 
 default_message_pool.register_message("modulepb", "DownloadResponse", DownloadResponse)
+
+
+@dataclass(eq=False, repr=False, config={"extra": "forbid"})
+class DriveInfo(betterproto2.Message):
+    path: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        1, betterproto2.TYPE_STRING
+    )
+    """
+    "C:\\\\"
+    """
+
+    drive_type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        2, betterproto2.TYPE_STRING
+    )
+    """
+    "Fixed drive"
+    """
+
+    total_size: "typing.Annotated[int, pydantic.Field(ge=0, le=2**64 - 1)]" = (
+        betterproto2.field(3, betterproto2.TYPE_UINT64)
+    )
+
+    free_size: "typing.Annotated[int, pydantic.Field(ge=0, le=2**64 - 1)]" = (
+        betterproto2.field(4, betterproto2.TYPE_UINT64)
+    )
+
+    file_system: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        5, betterproto2.TYPE_STRING
+    )
+    """
+    "NTFS"
+    """
+
+
+default_message_pool.register_message("modulepb", "DriveInfo", DriveInfo)
+
+
+@dataclass(eq=False, repr=False, config={"extra": "forbid"})
+class EnumDriversResponse(betterproto2.Message):
+    drives: "list[DriveInfo]" = betterproto2.field(
+        1, betterproto2.TYPE_MESSAGE, repeated=True
+    )
+
+
+default_message_pool.register_message(
+    "modulepb", "EnumDriversResponse", EnumDriversResponse
+)
 
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
@@ -688,6 +737,10 @@ class Os(betterproto2.Message):
     timezone
     """
 
+    clr_version: "list[typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]]" = betterproto2.field(
+        8, betterproto2.TYPE_STRING, repeated=True
+    )
+
 
 default_message_pool.register_message("modulepb", "Os", Os)
 
@@ -778,6 +831,105 @@ class PsResponse(betterproto2.Message):
 
 
 default_message_pool.register_message("modulepb", "PsResponse", PsResponse)
+
+
+@dataclass(eq=False, repr=False, config={"extra": "forbid"})
+class PtyRequest(betterproto2.Message):
+    """
+    PTY
+    """
+
+    type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        1, betterproto2.TYPE_STRING
+    )
+    """
+    type: "start", "input", "stop"
+    """
+
+    session_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        2, betterproto2.TYPE_STRING
+    )
+
+    shell: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        3, betterproto2.TYPE_STRING
+    )
+    """
+    shell type: "/bin/bash", "cmd.exe", "powershell.exe"
+    """
+
+    cols: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
+        betterproto2.field(4, betterproto2.TYPE_UINT32)
+    )
+
+    rows: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
+        betterproto2.field(5, betterproto2.TYPE_UINT32)
+    )
+
+    input_data: "bytes" = betterproto2.field(6, betterproto2.TYPE_BYTES)
+
+    input_text: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        7, betterproto2.TYPE_STRING
+    )
+
+    params: "dict[str, str]" = betterproto2.field(
+        8,
+        betterproto2.TYPE_MAP,
+        map_meta=betterproto2.map_meta(
+            betterproto2.TYPE_STRING, betterproto2.TYPE_STRING
+        ),
+    )
+
+
+default_message_pool.register_message("modulepb", "PtyRequest", PtyRequest)
+
+
+@dataclass(eq=False, repr=False, config={"extra": "forbid"})
+class PtyResponse(betterproto2.Message):
+    session_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        1, betterproto2.TYPE_STRING
+    )
+    """
+    会话ID
+    """
+
+    output_data: "bytes" = betterproto2.field(2, betterproto2.TYPE_BYTES)
+    """
+    输出数据（二进制）
+    """
+
+    output_text: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        3, betterproto2.TYPE_STRING
+    )
+    """
+    输出数据（文本）
+    """
+
+    error: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
+        4, betterproto2.TYPE_STRING
+    )
+    """
+    错误信息
+    """
+
+    session_active: "bool" = betterproto2.field(5, betterproto2.TYPE_BOOL)
+    """
+    会话是否仍然活跃
+    """
+
+    active_sessions: "list[typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]]" = betterproto2.field(
+        6, betterproto2.TYPE_STRING, repeated=True
+    )
+
+    metadata: "dict[str, str]" = betterproto2.field(
+        7,
+        betterproto2.TYPE_MAP,
+        map_meta=betterproto2.map_meta(
+            betterproto2.TYPE_STRING, betterproto2.TYPE_STRING
+        ),
+    )
+
+
+default_message_pool.register_message("modulepb", "PtyResponse", PtyResponse)
 
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
@@ -1144,123 +1296,6 @@ class ServiceStatus(betterproto2.Message):
 
 
 default_message_pool.register_message("modulepb", "ServiceStatus", ServiceStatus)
-
-
-@dataclass(eq=False, repr=False, config={"extra": "forbid"})
-class ShellRequest(betterproto2.Message):
-    """
-    Shell/PTY 相关消息定义
-    """
-
-    type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
-        1, betterproto2.TYPE_STRING
-    )
-    """
-    操作类型: "start", "input", "stop"
-    """
-
-    session_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
-        2, betterproto2.TYPE_STRING
-    )
-    """
-    会话ID
-    """
-
-    shell: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
-        3, betterproto2.TYPE_STRING
-    )
-    """
-    shell类型: "/bin/bash", "cmd.exe", "powershell.exe" 等
-    """
-
-    cols: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
-        betterproto2.field(4, betterproto2.TYPE_UINT32)
-    )
-    """
-    终端列数
-    """
-
-    rows: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
-        betterproto2.field(5, betterproto2.TYPE_UINT32)
-    )
-    """
-    终端行数
-    """
-
-    input_data: "bytes" = betterproto2.field(6, betterproto2.TYPE_BYTES)
-    """
-    输入数据（二进制）
-    """
-
-    input_text: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
-        7, betterproto2.TYPE_STRING
-    )
-    """
-    输入数据（文本）
-    """
-
-    params: "dict[str, str]" = betterproto2.field(
-        8,
-        betterproto2.TYPE_MAP,
-        map_meta=betterproto2.map_meta(
-            betterproto2.TYPE_STRING, betterproto2.TYPE_STRING
-        ),
-    )
-    """
-    额外参数
-    """
-
-
-default_message_pool.register_message("modulepb", "ShellRequest", ShellRequest)
-
-
-@dataclass(eq=False, repr=False, config={"extra": "forbid"})
-class ShellResponse(betterproto2.Message):
-    session_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
-        1, betterproto2.TYPE_STRING
-    )
-    """
-    会话ID
-    """
-
-    output_data: "bytes" = betterproto2.field(2, betterproto2.TYPE_BYTES)
-    """
-    输出数据（二进制）
-    """
-
-    output_text: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
-        3, betterproto2.TYPE_STRING
-    )
-    """
-    输出数据（文本）
-    """
-
-    error: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
-        4, betterproto2.TYPE_STRING
-    )
-    """
-    错误信息
-    """
-
-    session_active: "bool" = betterproto2.field(5, betterproto2.TYPE_BOOL)
-    """
-    会话是否仍然活跃
-    """
-
-    active_sessions: "list[typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]]" = betterproto2.field(
-        6, betterproto2.TYPE_STRING, repeated=True
-    )
-
-    metadata: "dict[str, str]" = betterproto2.field(
-        7,
-        betterproto2.TYPE_MAP,
-        map_meta=betterproto2.map_meta(
-            betterproto2.TYPE_STRING, betterproto2.TYPE_STRING
-        ),
-    )
-
-
-default_message_pool.register_message("modulepb", "ShellResponse", ShellResponse)
 
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})

@@ -10,12 +10,11 @@ from typing import TYPE_CHECKING
 
 import betterproto2
 import grpc
+from betterproto2 import grpclib as betterproto2_grpclib
+from betterproto2.grpclib.grpclib_client import MetadataLike
+from grpclib.metadata import Deadline
 
-if TYPE_CHECKING:
-    from betterproto2.grpc.grpclib_client import MetadataLike
-    from grpclib.metadata import Deadline
-
-_COMPILER_VERSION = "0.8.0"
+_COMPILER_VERSION = "0.9.0"
 betterproto2.check_compiler_version(_COMPILER_VERSION)
 
 
@@ -472,6 +471,13 @@ class MaliceRpcSyncStub:
             _clientpb__.Task.FromString,
         )(message)
 
+    def enum_drivers(self, message: "_modulepb__.Request") -> "_clientpb__.Task":
+        return self._channel.unary_unary(
+            "/clientrpc.MaliceRPC/EnumDrivers",
+            _modulepb__.Request.SerializeToString,
+            _clientpb__.Task.FromString,
+        )(message)
+
     def kill(self, message: "_modulepb__.Request") -> "_clientpb__.Task":
         """
         implant::sys
@@ -787,6 +793,13 @@ class MaliceRpcSyncStub:
             _clientpb__.Task.FromString,
         )(message)
 
+    def pipe_server(self, message: "_modulepb__.PipeRequest") -> "_clientpb__.Task":
+        return self._channel.unary_unary(
+            "/clientrpc.MaliceRPC/PipeServer",
+            _modulepb__.PipeRequest.SerializeToString,
+            _clientpb__.Task.FromString,
+        )(message)
+
     def execute(self, message: "_modulepb__.ExecRequest") -> "_clientpb__.Task":
         """
         implant:execute
@@ -957,6 +970,15 @@ class MaliceRpcSyncStub:
             _clientpb__.Profiles.FromString,
         )(message)
 
+    def get_profile_by_name(
+        self, message: "_clientpb__.Profile"
+    ) -> "_clientpb__.Profile":
+        return self._channel.unary_unary(
+            "/clientrpc.MaliceRPC/GetProfileByName",
+            _clientpb__.Profile.SerializeToString,
+            _clientpb__.Profile.FromString,
+        )(message)
+
     def delete_profile(self, message: "_clientpb__.Profile") -> "_clientpb__.Empty":
         return self._channel.unary_unary(
             "/clientrpc.MaliceRPC/DeleteProfile",
@@ -1034,7 +1056,7 @@ class MaliceRpcSyncStub:
         )(message)
 
     def update_github_config(
-        self, message: "_clientpb__.GithubWorkflowConfig"
+        self, message: "_clientpb__.GithubActionBuildConfig"
     ) -> "_clientpb__.Empty":
         """
         config
@@ -1042,20 +1064,20 @@ class MaliceRpcSyncStub:
 
         return self._channel.unary_unary(
             "/clientrpc.MaliceRPC/UpdateGithubConfig",
-            _clientpb__.GithubWorkflowConfig.SerializeToString,
+            _clientpb__.GithubActionBuildConfig.SerializeToString,
             _clientpb__.Empty.FromString,
         )(message)
 
     def get_github_config(
         self, message: "_clientpb__.Empty | None" = None
-    ) -> "_clientpb__.GithubWorkflowConfig":
+    ) -> "_clientpb__.GithubActionBuildConfig":
         if message is None:
             message = _clientpb__.Empty()
 
         return self._channel.unary_unary(
             "/clientrpc.MaliceRPC/GetGithubConfig",
             _clientpb__.Empty.SerializeToString,
-            _clientpb__.GithubWorkflowConfig.FromString,
+            _clientpb__.GithubActionBuildConfig.FromString,
         )(message)
 
     def update_notify_config(
@@ -1128,14 +1150,14 @@ class MaliceRpcSyncStub:
             _clientpb__.Tls.FromString,
         )(message)
 
-    def pty_request(self, message: "_modulepb__.ShellRequest") -> "_clientpb__.Task":
+    def pty_request(self, message: "_modulepb__.PtyRequest") -> "_clientpb__.Task":
         """
         pty
         """
 
         return self._channel.unary_unary(
             "/clientrpc.MaliceRPC/PtyRequest",
-            _modulepb__.ShellRequest.SerializeToString,
+            _modulepb__.PtyRequest.SerializeToString,
             _clientpb__.Task.FromString,
         )(message)
 
@@ -1200,7 +1222,7 @@ class MaliceRpcSyncStub:
         )(message)
 
 
-class MaliceRpcStub(betterproto2.ServiceStub):
+class MaliceRpcStub(betterproto2_grpclib.ServiceStub):
     async def login_client(
         self,
         message: "_clientpb__.LoginReq",
@@ -2143,6 +2165,23 @@ class MaliceRpcStub(betterproto2.ServiceStub):
             metadata=metadata,
         )
 
+    async def enum_drivers(
+        self,
+        message: "_modulepb__.Request",
+        *,
+        timeout: "float | None" = None,
+        deadline: "Deadline | None" = None,
+        metadata: "MetadataLike | None" = None,
+    ) -> "_clientpb__.Task":
+        return await self._unary_unary(
+            "/clientrpc.MaliceRPC/EnumDrivers",
+            message,
+            _clientpb__.Task,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
     async def kill(
         self,
         message: "_modulepb__.Request",
@@ -2800,6 +2839,23 @@ class MaliceRpcStub(betterproto2.ServiceStub):
             metadata=metadata,
         )
 
+    async def pipe_server(
+        self,
+        message: "_modulepb__.PipeRequest",
+        *,
+        timeout: "float | None" = None,
+        deadline: "Deadline | None" = None,
+        metadata: "MetadataLike | None" = None,
+    ) -> "_clientpb__.Task":
+        return await self._unary_unary(
+            "/clientrpc.MaliceRPC/PipeServer",
+            message,
+            _clientpb__.Task,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
     async def execute(
         self,
         message: "_modulepb__.ExecRequest",
@@ -3132,6 +3188,23 @@ class MaliceRpcStub(betterproto2.ServiceStub):
             metadata=metadata,
         )
 
+    async def get_profile_by_name(
+        self,
+        message: "_clientpb__.Profile",
+        *,
+        timeout: "float | None" = None,
+        deadline: "Deadline | None" = None,
+        metadata: "MetadataLike | None" = None,
+    ) -> "_clientpb__.Profile":
+        return await self._unary_unary(
+            "/clientrpc.MaliceRPC/GetProfileByName",
+            message,
+            _clientpb__.Profile,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
     async def delete_profile(
         self,
         message: "_clientpb__.Profile",
@@ -3280,7 +3353,7 @@ class MaliceRpcStub(betterproto2.ServiceStub):
 
     async def update_github_config(
         self,
-        message: "_clientpb__.GithubWorkflowConfig",
+        message: "_clientpb__.GithubActionBuildConfig",
         *,
         timeout: "float | None" = None,
         deadline: "Deadline | None" = None,
@@ -3306,14 +3379,14 @@ class MaliceRpcStub(betterproto2.ServiceStub):
         timeout: "float | None" = None,
         deadline: "Deadline | None" = None,
         metadata: "MetadataLike | None" = None,
-    ) -> "_clientpb__.GithubWorkflowConfig":
+    ) -> "_clientpb__.GithubActionBuildConfig":
         if message is None:
             message = _clientpb__.Empty()
 
         return await self._unary_unary(
             "/clientrpc.MaliceRPC/GetGithubConfig",
             message,
-            _clientpb__.GithubWorkflowConfig,
+            _clientpb__.GithubActionBuildConfig,
             timeout=timeout,
             deadline=deadline,
             metadata=metadata,
@@ -3453,7 +3526,7 @@ class MaliceRpcStub(betterproto2.ServiceStub):
 
     async def pty_request(
         self,
-        message: "_modulepb__.ShellRequest",
+        message: "_modulepb__.PtyRequest",
         *,
         timeout: "float | None" = None,
         deadline: "Deadline | None" = None,
@@ -3664,7 +3737,7 @@ class RootRpcSyncStub:
         )(message)
 
 
-class RootRpcStub(betterproto2.ServiceStub):
+class RootRpcStub(betterproto2_grpclib.ServiceStub):
     async def add_client(
         self,
         message: "_rootpb__.Operator",

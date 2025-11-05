@@ -19,7 +19,7 @@ from pydantic.dataclasses import dataclass
 
 from ..message_pool import default_message_pool
 
-_COMPILER_VERSION = "0.8.0"
+_COMPILER_VERSION = "0.9.0"
 betterproto2.check_compiler_version(_COMPILER_VERSION)
 
 
@@ -48,12 +48,11 @@ class Spite(betterproto2.Message):
         betterproto2.field(2, betterproto2.TYPE_UINT32)
     )
 
+    async_: "bool" = betterproto2.field(3, betterproto2.TYPE_BOOL)
+
     timeout: "typing.Annotated[int, pydantic.Field(ge=0, le=2**64 - 1)]" = (
         betterproto2.field(4, betterproto2.TYPE_UINT64)
     )
-    """
-     bool  async = 3;
-    """
 
     error: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(5, betterproto2.TYPE_UINT32)
@@ -267,15 +266,19 @@ class Spite(betterproto2.Message):
         140, betterproto2.TYPE_MESSAGE, optional=True, group="body"
     )
 
+    enum_drivers_response: "_modulepb__.EnumDriversResponse | None" = (
+        betterproto2.field(141, betterproto2.TYPE_MESSAGE, optional=True, group="body")
+    )
+
     ffmpeg_request: "_modulepb__.FFmpegRequest | None" = betterproto2.field(
         150, betterproto2.TYPE_MESSAGE, optional=True, group="body"
     )
 
-    shell_request: "_modulepb__.ShellRequest | None" = betterproto2.field(
+    pty_request: "_modulepb__.PtyRequest | None" = betterproto2.field(
         151, betterproto2.TYPE_MESSAGE, optional=True, group="body"
     )
 
-    shell_response: "_modulepb__.ShellResponse | None" = betterproto2.field(
+    pty_response: "_modulepb__.PtyResponse | None" = betterproto2.field(
         152, betterproto2.TYPE_MESSAGE, optional=True, group="body"
     )
 

@@ -10,12 +10,11 @@ from typing import TYPE_CHECKING
 
 import betterproto2
 import grpc
+from betterproto2 import grpclib as betterproto2_grpclib
+from betterproto2.grpclib.grpclib_client import MetadataLike
+from grpclib.metadata import Deadline
 
-if TYPE_CHECKING:
-    from betterproto2.grpc.grpclib_client import MetadataLike
-    from grpclib.metadata import Deadline
-
-_COMPILER_VERSION = "0.8.0"
+_COMPILER_VERSION = "0.9.0"
 betterproto2.check_compiler_version(_COMPILER_VERSION)
 
 
@@ -367,7 +366,7 @@ class ListenerRpcSyncStub:
         )(message)
 
 
-class ListenerRpcStub(betterproto2.ServiceStub):
+class ListenerRpcStub(betterproto2_grpclib.ServiceStub):
     async def spite_stream(
         self,
         messages: "AsyncIterable[_clientpb__.SpiteResponse] | Iterable[_clientpb__.SpiteResponse]",
