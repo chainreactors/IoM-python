@@ -94,9 +94,11 @@ import typing
 
 import betterproto2
 import pydantic
+from google.protobuf.descriptor import Descriptor
 from pydantic import model_validator
 from pydantic.dataclasses import dataclass
 
+from ..google_proto_descriptor_pool import default_google_proto_descriptor_pool
 from ..message_pool import default_message_pool
 
 _COMPILER_VERSION = "0.9.0"
@@ -105,6 +107,11 @@ betterproto2.check_compiler_version(_COMPILER_VERSION)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Artifact(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Artifact"]
+
     id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -179,6 +186,13 @@ default_message_pool.register_message("clientpb", "Artifact", Artifact)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Artifacts(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "Artifacts"
+        ]
+
     artifacts: "list[Artifact]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -189,6 +203,11 @@ default_message_pool.register_message("clientpb", "Artifacts", Artifacts)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Audit(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Audit"]
+
     context: "TaskContext | None" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, optional=True
     )
@@ -219,6 +238,11 @@ default_message_pool.register_message("clientpb", "Audit", Audit)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Audits(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Audits"]
+
     audit: "list[Audit]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -229,6 +253,11 @@ default_message_pool.register_message("clientpb", "Audits", Audits)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Basic(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Basic"]
+
     version: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -257,6 +286,13 @@ default_message_pool.register_message("clientpb", "Basic", Basic)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class BasicUpdateSession(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "BasicUpdateSession"
+        ]
+
     session_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -277,6 +313,11 @@ default_message_pool.register_message(
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Bin(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Bin"]
+
     bin: "bytes" = betterproto2.field(1, betterproto2.TYPE_BYTES)
 
 
@@ -285,6 +326,13 @@ default_message_pool.register_message("clientpb", "Bin", Bin)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class BindPipeline(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "BindPipeline"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -305,6 +353,13 @@ class BuildConfig(betterproto2.Message):
     Oneofs:
         - source_config:
     """
+
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "BuildConfig"
+        ]
 
     build_name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
@@ -360,6 +415,13 @@ default_message_pool.register_message("clientpb", "BuildConfig", BuildConfig)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class BuildResources(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "BuildResources"
+        ]
+
     entries: "list[ResourceEntry]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -370,6 +432,11 @@ default_message_pool.register_message("clientpb", "BuildResources", BuildResourc
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Cert(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Cert"]
+
     cert: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -392,6 +459,13 @@ default_message_pool.register_message("clientpb", "Cert", Cert)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class CertificateSubject(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "CertificateSubject"
+        ]
+
     cn: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -449,6 +523,11 @@ default_message_pool.register_message(
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Certs(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Certs"]
+
     certs: "list[Tls]" = betterproto2.field(1, betterproto2.TYPE_MESSAGE, repeated=True)
 
 
@@ -457,6 +536,11 @@ default_message_pool.register_message("clientpb", "Certs", Certs)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Client(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Client"]
+
     id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -477,6 +561,11 @@ default_message_pool.register_message("clientpb", "Client", Client)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Clients(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Clients"]
+
     clients: "list[Client]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -487,6 +576,11 @@ default_message_pool.register_message("clientpb", "Clients", Clients)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Context(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Context"]
+
     id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -525,6 +619,11 @@ default_message_pool.register_message("clientpb", "Context", Context)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Contexts(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Contexts"]
+
     contexts: "list[Context]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -535,6 +634,13 @@ default_message_pool.register_message("clientpb", "Contexts", Contexts)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class CtrlPipeline(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "CtrlPipeline"
+        ]
+
     listener_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -557,6 +663,13 @@ default_message_pool.register_message("clientpb", "CtrlPipeline", CtrlPipeline)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Dll2Shellcode(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "DLL2Shellcode"
+        ]
+
     bin: "bytes" = betterproto2.field(1, betterproto2.TYPE_BYTES)
 
     type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
@@ -587,6 +700,13 @@ default_message_pool.register_message("clientpb", "DLL2Shellcode", Dll2Shellcode
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class DockerBuildConfig(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "DockerBuildConfig"
+        ]
+
     remote_host: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -603,6 +723,11 @@ default_message_pool.register_message(
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Empty(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Empty"]
+
     pass
 
 
@@ -611,6 +736,13 @@ default_message_pool.register_message("clientpb", "Empty", Empty)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Encryption(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "Encryption"
+        ]
+
     type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         2, betterproto2.TYPE_STRING
     )
@@ -625,6 +757,11 @@ default_message_pool.register_message("clientpb", "Encryption", Encryption)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Event(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Event"]
+
     type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -674,6 +811,11 @@ default_message_pool.register_message("clientpb", "Event", Event)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Events(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Events"]
+
     events: "list[Event]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -684,6 +826,13 @@ default_message_pool.register_message("clientpb", "Events", Events)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Exe2Shellcode(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "EXE2Shellcode"
+        ]
+
     bin: "bytes" = betterproto2.field(1, betterproto2.TYPE_BYTES)
 
     type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
@@ -710,6 +859,11 @@ default_message_pool.register_message("clientpb", "EXE2Shellcode", Exe2Shellcode
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class File(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["File"]
+
     task_id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -753,6 +907,11 @@ default_message_pool.register_message("clientpb", "File", File)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Files(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Files"]
+
     files: "list[File]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -763,6 +922,13 @@ default_message_pool.register_message("clientpb", "Files", Files)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class GithubActionBuildConfig(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "GithubActionBuildConfig"
+        ]
+
     owner: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -797,6 +963,13 @@ default_message_pool.register_message(
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class GithubWorkflow(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "GithubWorkflow"
+        ]
+
     id: "typing.Annotated[int, pydantic.Field(ge=-2**63, le=2**63 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_INT64)
     )
@@ -873,6 +1046,13 @@ default_message_pool.register_message("clientpb", "GithubWorkflow", GithubWorkfl
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class GithubWorkflowConfig(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "GithubWorkflowConfig"
+        ]
+
     owner: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -911,6 +1091,13 @@ default_message_pool.register_message(
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class GithubWorkflows(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "GithubWorkflows"
+        ]
+
     workflows: "list[GithubWorkflow]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -924,6 +1111,13 @@ default_message_pool.register_message("clientpb", "GithubWorkflows", GithubWorkf
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class HttpPipeline(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "HTTPPipeline"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -957,6 +1151,11 @@ default_message_pool.register_message("clientpb", "HTTPPipeline", HttpPipeline)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Int(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Int"]
+
     limit: "typing.Annotated[int, pydantic.Field(ge=-2**31, le=2**31 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_INT32)
     )
@@ -973,6 +1172,11 @@ class Job(betterproto2.Message):
     Oneofs:
         - body:
     """
+
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Job"]
 
     id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
@@ -1012,6 +1216,11 @@ default_message_pool.register_message("clientpb", "Job", Job)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class JobCtrl(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["JobCtrl"]
+
     id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -1036,6 +1245,11 @@ default_message_pool.register_message("clientpb", "JobCtrl", JobCtrl)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Jobs(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Jobs"]
+
     job: "list[Job]" = betterproto2.field(1, betterproto2.TYPE_MESSAGE, repeated=True)
 
 
@@ -1044,6 +1258,13 @@ default_message_pool.register_message("clientpb", "Jobs", Jobs)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class JobStatus(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "JobStatus"
+        ]
+
     listener_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1076,6 +1297,11 @@ default_message_pool.register_message("clientpb", "JobStatus", JobStatus)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class KeyPair(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["KeyPair"]
+
     public_key: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1096,6 +1322,13 @@ default_message_pool.register_message("clientpb", "KeyPair", KeyPair)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class LicenseInfo(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "LicenseInfo"
+        ]
+
     user_name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1122,6 +1355,11 @@ default_message_pool.register_message("clientpb", "LicenseInfo", LicenseInfo)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Listener(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Listener"]
+
     id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1142,6 +1380,13 @@ default_message_pool.register_message("clientpb", "Listener", Listener)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Listeners(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "Listeners"
+        ]
+
     listeners: "list[Listener]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -1152,6 +1397,11 @@ default_message_pool.register_message("clientpb", "Listeners", Listeners)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class LoginReq(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["LoginReq"]
+
     host: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1170,6 +1420,11 @@ default_message_pool.register_message("clientpb", "LoginReq", LoginReq)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Notify(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Notify"]
+
     telegram_enable: "bool" = betterproto2.field(1, betterproto2.TYPE_BOOL)
 
     telegram_api_key: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
@@ -1222,6 +1477,11 @@ default_message_pool.register_message("clientpb", "Notify", Notify)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class On(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["On"]
+
     id: "typing.Annotated[int, pydantic.Field(ge=-2**31, le=2**31 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_INT32)
     )
@@ -1266,6 +1526,11 @@ class Pipeline(betterproto2.Message):
     Oneofs:
         - body:
     """
+
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Pipeline"]
 
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
@@ -1336,6 +1601,13 @@ default_message_pool.register_message("clientpb", "Pipeline", Pipeline)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Pipelines(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "Pipelines"
+        ]
+
     pipelines: "list[Pipeline]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -1346,6 +1618,11 @@ default_message_pool.register_message("clientpb", "Pipelines", Pipelines)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Plugin(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Plugin"]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1358,6 +1635,11 @@ default_message_pool.register_message("clientpb", "Plugin", Plugin)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Plugins(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Plugins"]
+
     plugins: "list[Plugin]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -1368,6 +1650,11 @@ default_message_pool.register_message("clientpb", "Plugins", Plugins)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Polling(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Polling"]
+
     id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1392,6 +1679,11 @@ default_message_pool.register_message("clientpb", "Polling", Polling)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Profile(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Profile"]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1424,6 +1716,11 @@ default_message_pool.register_message("clientpb", "Profile", Profile)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Profiles(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Profiles"]
+
     profiles: "list[Profile]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -1434,6 +1731,13 @@ default_message_pool.register_message("clientpb", "Profiles", Profiles)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class RegisterListener(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "RegisterListener"
+        ]
+
     id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1460,6 +1764,13 @@ default_message_pool.register_message("clientpb", "RegisterListener", RegisterLi
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class RegisterSession(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "RegisterSession"
+        ]
+
     session_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1494,6 +1805,11 @@ default_message_pool.register_message("clientpb", "RegisterSession", RegisterSes
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Rem(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["REM"]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1536,6 +1852,11 @@ default_message_pool.register_message("clientpb", "REM", Rem)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class RemAgent(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["REMAgent"]
+
     pipeline_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1568,6 +1889,13 @@ default_message_pool.register_message("clientpb", "REMAgent", RemAgent)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class RemAgents(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "REMAgents"
+        ]
+
     agents: "list[RemAgent]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -1578,6 +1906,11 @@ default_message_pool.register_message("clientpb", "REMAgents", RemAgents)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class RemLog(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["RemLog"]
+
     pipeline_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1596,6 +1929,13 @@ default_message_pool.register_message("clientpb", "RemLog", RemLog)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ResourceEntry(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "ResourceEntry"
+        ]
+
     filename: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1608,6 +1948,13 @@ default_message_pool.register_message("clientpb", "ResourceEntry", ResourceEntry
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class SaasBuildConfig(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "SaasBuildConfig"
+        ]
+
     url: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1630,6 +1977,11 @@ default_message_pool.register_message("clientpb", "SaasBuildConfig", SaasBuildCo
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Secure(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Secure"]
+
     enable: "bool" = betterproto2.field(1, betterproto2.TYPE_BOOL)
     """
     是否启用安全模式
@@ -1655,6 +2007,11 @@ default_message_pool.register_message("clientpb", "Secure", Secure)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Session(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Session"]
+
     session_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1778,6 +2135,13 @@ default_message_pool.register_message("clientpb", "Session", Session)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class SessionRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "SessionRequest"
+        ]
+
     session_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1790,6 +2154,11 @@ default_message_pool.register_message("clientpb", "SessionRequest", SessionReque
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Sessions(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Sessions"]
+
     sessions: "list[Session]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -1800,6 +2169,13 @@ default_message_pool.register_message("clientpb", "Sessions", Sessions)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ShellcodeEncode(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "ShellcodeEncode"
+        ]
+
     shellcode: "bytes" = betterproto2.field(1, betterproto2.TYPE_BYTES)
 
     type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
@@ -1826,6 +2202,13 @@ default_message_pool.register_message("clientpb", "ShellcodeEncode", ShellcodeEn
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class SpiteCache(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "SpiteCache"
+        ]
+
     items: "list[SpiteCacheItem]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -1836,6 +2219,13 @@ default_message_pool.register_message("clientpb", "SpiteCache", SpiteCache)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class SpiteCacheItem(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "SpiteCacheItem"
+        ]
+
     index: "typing.Annotated[int, pydantic.Field(ge=-2**31, le=2**31 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_INT32)
     )
@@ -1858,6 +2248,13 @@ default_message_pool.register_message("clientpb", "SpiteCacheItem", SpiteCacheIt
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class SpiteRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "SpiteRequest"
+        ]
+
     listener_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1880,6 +2277,13 @@ default_message_pool.register_message("clientpb", "SpiteRequest", SpiteRequest)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class SpiteResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "SpiteResponse"
+        ]
+
     listener_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1902,6 +2306,11 @@ default_message_pool.register_message("clientpb", "SpiteResponse", SpiteResponse
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Sync(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Sync"]
+
     context_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1916,6 +2325,11 @@ default_message_pool.register_message("clientpb", "Sync", Sync)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class SyncResp(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["SyncResp"]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1928,6 +2342,11 @@ default_message_pool.register_message("clientpb", "SyncResp", SyncResp)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Task(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Task"]
+
     task_id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -1978,6 +2397,13 @@ default_message_pool.register_message("clientpb", "Task", Task)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskContext(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "TaskContext"
+        ]
+
     task: "Task | None" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, optional=True
     )
@@ -1996,6 +2422,13 @@ default_message_pool.register_message("clientpb", "TaskContext", TaskContext)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskContexts(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "TaskContexts"
+        ]
+
     task: "Task | None" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, optional=True
     )
@@ -2014,6 +2447,11 @@ default_message_pool.register_message("clientpb", "TaskContexts", TaskContexts)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskDesc(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["TaskDesc"]
+
     task_id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -2044,6 +2482,13 @@ default_message_pool.register_message("clientpb", "TaskDesc", TaskDesc)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskDescs(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "TaskDescs"
+        ]
+
     tasks: "list[TaskDesc]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -2054,6 +2499,13 @@ default_message_pool.register_message("clientpb", "TaskDescs", TaskDescs)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "TaskRequest"
+        ]
+
     session_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -2066,6 +2518,11 @@ default_message_pool.register_message("clientpb", "TaskRequest", TaskRequest)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Tasks(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Tasks"]
+
     tasks: "list[Task]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -2076,6 +2533,13 @@ default_message_pool.register_message("clientpb", "Tasks", Tasks)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TasksContext(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "TasksContext"
+        ]
+
     contexts: "list[TaskContext]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -2086,6 +2550,13 @@ default_message_pool.register_message("clientpb", "TasksContext", TasksContext)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TcpPipeline(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "TCPPipeline"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -2112,6 +2583,11 @@ default_message_pool.register_message("clientpb", "TCPPipeline", TcpPipeline)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Tls(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["TLS"]
+
     cert: "Cert | None" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, optional=True
     )
@@ -2136,6 +2612,13 @@ default_message_pool.register_message("clientpb", "TLS", Tls)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class WebContent(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "WebContent"
+        ]
+
     id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -2180,6 +2663,13 @@ default_message_pool.register_message("clientpb", "WebContent", WebContent)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class WebContents(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name[
+            "WebContents"
+        ]
+
     contents: "list[WebContent]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -2190,6 +2680,11 @@ default_message_pool.register_message("clientpb", "WebContents", WebContents)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Website(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Website"]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -2220,6 +2715,11 @@ default_message_pool.register_message("clientpb", "Website", Website)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Websites(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR.message_types_by_name["Websites"]
+
     websites: "list[Website]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -2230,3 +2730,7 @@ default_message_pool.register_message("clientpb", "Websites", Websites)
 
 from .. import implantpb as _implantpb__
 from .. import modulepb as _modulepb__
+
+CLIENT_CLIENTPB_CLIENT_PROTO_DESCRIPTOR = default_google_proto_descriptor_pool.AddSerializedFile(
+    b'\n\x1cclient/clientpb/client.proto\x12\x08clientpb\x1a\x1fimplant/implantpb/implant.proto\x1a\x1eimplant/implantpb/module.proto"\x07\n\x05Empty"\x93\x01\n\x05Basic\x12\x18\n\x07version\x18\x01 \x01(\tR\x07version\x12\x16\n\x06commit\x18\x04 \x01(\tR\x06commit\x12\x14\n\x05dirty\x18\x05 \x01(\x08R\x05dirty\x12\x1e\n\ncompiledAt\x18\x06 \x01(\x03R\ncompiledAt\x12\x0e\n\x02os\x18\x07 \x01(\tR\x02os\x12\x12\n\x04arch\x18\x08 \x01(\tR\x04arch"\xf5\x07\n\x07Session\x12\x1d\n\nsession_id\x18\x01 \x01(\tR\tsessionId\x12\x15\n\x06raw_id\x18\x02 \x01(\rR\x05rawId\x12\x12\n\x04name\x18\x03 \x01(\tR\x04name\x12\x12\n\x04type\x18\x04 \x01(\tR\x04type\x12\x12\n\x04note\x18\x05 \x01(\tR\x04note\x12\x1f\n\x0bpipeline_id\x18\x06 \x01(\tR\npipelineId\x12\x1f\n\x0blistener_id\x18\x07 \x01(\tR\nlistenerId\x12\x1d\n\ngroup_name\x18\x08 \x01(\tR\tgroupName\x12\x16\n\x06target\x18\t \x01(\tR\x06target\x12\x19\n\x08is_alive\x18\n \x01(\x08R\x07isAlive\x12!\n\x0cis_privilege\x18\x0b \x01(\x08R\x0bisPrivilege\x12%\n\x0eis_initialized\x18\x0c \x01(\x08R\risInitialized\x12!\n\x0clast_checkin\x18\r \x01(\x03R\x0blastCheckin\x12%\n\x05tasks\x18\x0f \x01(\x0b2\x0f.clientpb.TasksR\x05tasks\x12\x1a\n\x08filepath\x18\x10 \x01(\tR\x08filepath\x12\x16\n\x06locate\x18\x11 \x01(\tR\x06locate\x12\x18\n\x07workdir\x18\x12 \x01(\tR\x07workdir\x12\x14\n\x05proxy\x18\x13 \x01(\tR\x05proxy\x12\x1c\n\x02os\x18\x14 \x01(\x0b2\x0c.modulepb.OsR\x02os\x12+\n\x07process\x18\x15 \x01(\x0b2\x11.modulepb.ProcessR\x07process\x12%\n\x05timer\x18\x16 \x01(\x0b2\x0f.modulepb.TimerR\x05timer\x12\x1d\n\ncreated_at\x18\x17 \x01(\x03R\tcreatedAt\x12\x18\n\x07modules\x18\x1e \x03(\tR\x07modules\x12\'\n\x06addons\x18\x1f \x03(\x0b2\x0f.modulepb.AddonR\x06addons\x12,\n\x08key_pair\x18  \x01(\x0b2\x11.clientpb.KeyPairR\x07keyPair\x122\n\x05argue\x18( \x03(\x0b2\x1c.clientpb.Session.ArgueEntryR\x05argue\x12\x12\n\x04data\x18) \x01(\tR\x04data\x12/\n\x04loot\x18* \x03(\x0b2\x1b.clientpb.Session.LootEntryR\x04loot\x1a8\n\nArgueEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\x1a7\n\tLootEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01"A\n\x0eSessionRequest\x12\x1d\n\nsession_id\x18\x01 \x01(\tR\tsessionId\x12\x10\n\x03all\x18\x02 \x01(\x08R\x03all">\n\x0bTaskRequest\x12\x1d\n\nsession_id\x18\x01 \x01(\tR\tsessionId\x12\x10\n\x03all\x18\x02 \x01(\x08R\x03all"\x1b\n\x03Int\x12\x14\n\x05limit\x18\x01 \x01(\x05R\x05limit"\xcc\x01\n\x05Audit\x12/\n\x07context\x18\x01 \x01(\x0b2\x15.clientpb.TaskContextR\x07context\x12\x18\n\x07command\x18\x02 \x01(\tR\x07command\x12*\n\x07request\x18\x03 \x01(\x0b2\x10.implantpb.SpiteR\x07request\x12\x18\n\x07Created\x18\x04 \x01(\tR\x07Created\x12\x1a\n\x08Finished\x18\x05 \x01(\tR\x08Finished\x12\x16\n\x06Lasted\x18\x06 \x01(\tR\x06Lasted"/\n\x06Audits\x12%\n\x05audit\x18\x01 \x03(\x0b2\x0f.clientpb.AuditR\x05audit"U\n\x12BasicUpdateSession\x12\x1d\n\nsession_id\x18\x01 \x01(\tR\tsessionId\x12\x0e\n\x02op\x18\x02 \x01(\tR\x02op\x12\x10\n\x03arg\x18\x03 \x01(\tR\x03arg"9\n\x08Sessions\x12-\n\x08sessions\x18\x01 \x03(\x0b2\x11.clientpb.SessionR\x08sessions"<\n\nSpiteCache\x12.\n\x05items\x18\x01 \x03(\x0b2\x18.clientpb.SpiteCacheItemR\x05items"~\n\x0eSpiteCacheItem\x12\x14\n\x05index\x18\x01 \x01(\x05R\x05index\x12\x0e\n\x02id\x18\x02 \x01(\tR\x02id\x12&\n\x05spite\x18\x03 \x01(\x0b2\x10.implantpb.SpiteR\x05spite\x12\x1e\n\nexpiration\x18\x04 \x01(\x03R\nexpiration"\xcd\x02\n\x03Job\x12\x0e\n\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n\x04name\x18\x02 \x01(\tR\x04name\x12.\n\x08pipeline\x18\x03 \x01(\x0b2\x12.clientpb.PipelineR\x08pipeline\x127\n\x08contents\x18\x04 \x03(\x0b2\x1b.clientpb.Job.ContentsEntryR\x08contents\x121\n\trem_agent\x18\n \x01(\x0b2\x12.clientpb.REMAgentH\x00R\x08remAgent\x12+\n\x07rem_log\x18\x0b \x01(\x0b2\x10.clientpb.RemLogH\x00R\x06remLog\x1aQ\n\rContentsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12*\n\x05value\x18\x02 \x01(\x0b2\x14.clientpb.WebContentR\x05value:\x028\x01B\x06\n\x04body"\'\n\x04Jobs\x12\x1f\n\x03job\x18\x01 \x03(\x0b2\r.clientpb.JobR\x03job"\xab\x01\n\x07JobCtrl\x12\x0e\n\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n\x04ctrl\x18\x02 \x01(\tR\x04ctrl\x12\x1f\n\x03job\x18\x03 \x01(\x0b2\r.clientpb.JobR\x03job\x12.\n\x07content\x18\x04 \x01(\x0b2\x14.clientpb.WebContentR\x07content\x12+\n\x07session\x18\x05 \x01(\x0b2\x11.clientpb.SessionR\x07session"\xd8\x01\n\tJobStatus\x12\x1f\n\x0blistener_id\x18\x01 \x01(\tR\nlistenerId\x12\x12\n\x04ctrl\x18\x02 \x01(\tR\x04ctrl\x12\x16\n\x06status\x18\x03 \x01(\x05R\x06status\x12\x14\n\x05error\x18\x04 \x01(\tR\x05error\x12\x1f\n\x03job\x18\x05 \x01(\x0b2\r.clientpb.JobR\x03job\x12\x17\n\x07ctrl_id\x18\x06 \x01(\rR\x06ctrlId\x12.\n\x07content\x18\x07 \x01(\x0b2\x14.clientpb.WebContentR\x07content"u\n\x08Listener\x12\x0e\n\x02id\x18\x01 \x01(\tR\x02id\x12\x0e\n\x02ip\x18\x02 \x01(\tR\x02ip\x12\x16\n\x06active\x18\x03 \x01(\x08R\x06active\x121\n\tpipelines\x18\x04 \x01(\x0b2\x13.clientpb.PipelinesR\tpipelines"=\n\tListeners\x120\n\tlisteners\x18\x01 \x03(\x0b2\x12.clientpb.ListenerR\tlisteners"X\n\x06Client\x12\x0e\n\x02ID\x18\x01 \x01(\rR\x02ID\x12\x12\n\x04Name\x18\x02 \x01(\tR\x04Name\x12\x16\n\x06Online\x18\x03 \x01(\x08R\x06Online\x12\x12\n\x04Type\x18\x04 \x01(\tR\x04Type"5\n\x07Clients\x12*\n\x07clients\x18\x01 \x03(\x0b2\x10.clientpb.ClientR\x07clients"\xd1\x02\n\x05Event\x12\x12\n\x04type\x18\x01 \x01(\tR\x04type\x12\x0e\n\x02op\x18\x02 \x01(\tR\x02op\x12\x1c\n\tformatted\x18\x04 \x01(\tR\tformatted\x12\x18\n\x07message\x18\x05 \x01(\x0cR\x07message\x12\x10\n\x03err\x18\x06 \x01(\tR\x03err\x12\x16\n\x06callee\x18\x07 \x01(\tR\x06callee\x12+\n\x07session\x18\n \x01(\x0b2\x11.clientpb.SessionR\x07session\x12\x1f\n\x03job\x18\x0b \x01(\x0b2\r.clientpb.JobR\x03job\x12(\n\x06client\x18\x0c \x01(\x0b2\x10.clientpb.ClientR\x06client\x12"\n\x04task\x18\r \x01(\x0b2\x0e.clientpb.TaskR\x04task\x12&\n\x05spite\x18\x0e \x01(\x0b2\x10.implantpb.SpiteR\x05spite"1\n\x06Events\x12\'\n\x06events\x18\x01 \x03(\x0b2\x0f.clientpb.EventR\x06events"\xeb\x01\n\x02On\x12\x0e\n\x02id\x18\x01 \x01(\x05R\x02id\x12\x1d\n\nevent_type\x18\x02 \x01(\tR\teventType\x12\x19\n\x08event_op\x18\x03 \x01(\tR\x07eventOp\x12!\n\x0cmessage_name\x18\x04 \x01(\tR\x0bmessageName\x12\x1d\n\nsession_id\x18\x05 \x01(\tR\tsessionId\x12\x17\n\x07task_id\x18\x06 \x01(\tR\x06taskId\x12\x1f\n\x0bpipeline_id\x18\x07 \x01(\tR\npipelineId\x12\x1f\n\x0blistener_id\x18\x08 \x01(\tR\nlistenerId"F\n\x08LoginReq\x12\x12\n\x04host\x18\x01 \x01(\tR\x04host\x12\x12\n\x04port\x18\x02 \x01(\rR\x04port\x12\x12\n\x04name\x18\x03 \x01(\tR\x04name">\n\x04Sync\x12\x1d\n\ncontext_id\x18\x01 \x01(\tR\tcontextId\x12\x17\n\x07task_id\x18\x02 \x01(\tR\x06taskId"8\n\x08SyncResp\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n\x07content\x18\x02 \x01(\x0cR\x07content"\x86\x01\n\x0bTaskContext\x12"\n\x04task\x18\x01 \x01(\x0b2\x0e.clientpb.TaskR\x04task\x12+\n\x07session\x18\x02 \x01(\x0b2\x11.clientpb.SessionR\x07session\x12&\n\x05spite\x18\x03 \x01(\x0b2\x10.implantpb.SpiteR\x05spite"\x89\x01\n\x0cTaskContexts\x12"\n\x04task\x18\x01 \x01(\x0b2\x0e.clientpb.TaskR\x04task\x12+\n\x07session\x18\x02 \x01(\x0b2\x11.clientpb.SessionR\x07session\x12(\n\x06spites\x18\x03 \x03(\x0b2\x10.implantpb.SpiteR\x06spites"A\n\x0cTasksContext\x121\n\x08contexts\x18\x01 \x03(\x0b2\x15.clientpb.TaskContextR\x08contexts"\xac\x02\n\x04Task\x12\x17\n\x07task_id\x18\x01 \x01(\rR\x06taskId\x12\x1d\n\nsession_id\x18\x02 \x01(\tR\tsessionId\x12\x12\n\x04type\x18\x03 \x01(\tR\x04type\x12\x16\n\x06status\x18\x04 \x01(\x05R\x06status\x12\x10\n\x03cur\x18\x05 \x01(\x05R\x03cur\x12\x14\n\x05total\x18\x06 \x01(\x05R\x05total\x12\x14\n\x05error\x18\x07 \x01(\tR\x05error\x12\x12\n\x04need\x18\x08 \x01(\x05R\x04need\x12 \n\x0bdescription\x18\t \x01(\tR\x0bdescription\x12\x16\n\x06callby\x18\n \x01(\tR\x06callby\x12\x1a\n\x08finished\x18\x0b \x01(\x08R\x08finished\x12\x18\n\x07timeout\x18\x0c \x01(\x08R\x07timeout"-\n\x05Tasks\x12$\n\x05tasks\x18\x01 \x03(\x0b2\x0e.clientpb.TaskR\x05tasks"5\n\tTaskDescs\x12(\n\x05tasks\x18\x01 \x03(\x0b2\x12.clientpb.TaskDescR\x05tasks"\xac\x01\n\x04File\x12\x17\n\x07task_id\x18\x01 \x01(\rR\x06taskId\x12\x12\n\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n\x05local\x18\x03 \x01(\tR\x05local\x12\x1a\n\x08checksum\x18\x04 \x01(\tR\x08checksum\x12\x16\n\x06remote\x18\x05 \x01(\tR\x06remote\x12\x0e\n\x02op\x18\x06 \x01(\tR\x02op\x12\x1d\n\nsession_id\x18\x07 \x01(\tR\tsessionId"-\n\x05Files\x12$\n\x05files\x18\x01 \x03(\x0b2\x0e.clientpb.FileR\x05files"\x99\x01\n\x08TaskDesc\x12\x17\n\x07task_id\x18\x01 \x01(\rR\x06taskId\x12\x10\n\x03cur\x18\x02 \x01(\x05R\x03cur\x12\x14\n\x05total\x18\x03 \x01(\x05R\x05total\x12\x12\n\x04type\x18\x04 \x01(\tR\x04type\x12\x16\n\x06status\x18\x05 \x01(\x05R\x06status\x12 \n\x0bdescription\x18\x06 \x01(\tR\x0bdescription"5\n\x07Plugins\x12*\n\x07plugins\x18\x01 \x03(\x0b2\x10.clientpb.PluginR\x07plugins"6\n\x06Plugin\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n\x07content\x18\x02 \x01(\x0cR\x07content"a\n\rEXE2Shellcode\x12\x10\n\x03bin\x18\x01 \x01(\x0cR\x03bin\x12\x12\n\x04type\x18\x02 \x01(\tR\x04type\x12\x12\n\x04arch\x18\x03 \x01(\tR\x04arch\x12\x16\n\x06params\x18\x04 \x01(\tR\x06params"\x81\x01\n\rDLL2Shellcode\x12\x10\n\x03bin\x18\x01 \x01(\x0cR\x03bin\x12\x12\n\x04type\x18\x02 \x01(\tR\x04type\x12\x12\n\x04arch\x18\x03 \x01(\tR\x04arch\x12\x16\n\x06params\x18\x04 \x01(\tR\x06params\x12\x1e\n\nentrypoint\x18\x05 \x01(\tR\nentrypoint"w\n\x0fShellcodeEncode\x12\x1c\n\tshellcode\x18\x01 \x01(\x0cR\tshellcode\x12\x12\n\x04type\x18\x02 \x01(\tR\x04type\x12\x12\n\x04arch\x18\x03 \x01(\tR\x04arch\x12\x1e\n\niterations\x18\x04 \x01(\x05R\niterations"\x17\n\x03Bin\x12\x10\n\x03Bin\x18\x01 \x01(\x0cR\x03Bin"\xde\x03\n\x08Artifact\x12\x0e\n\x02id\x18\x01 \x01(\rR\x02id\x12\x10\n\x03bin\x18\x02 \x01(\x0cR\x03bin\x12\x12\n\x04name\x18\x03 \x01(\tR\x04name\x12\x12\n\x04type\x18\x04 \x01(\tR\x04type\x12\x16\n\x06target\x18\x05 \x01(\tR\x06target\x12\x12\n\x04arch\x18\x06 \x01(\tR\x04arch\x12\x1a\n\x08platform\x18\x07 \x01(\tR\x08platform\x12\x18\n\x07profile\x18\x08 \x01(\tR\x07profile\x12\x1a\n\x08pipeline\x18\t \x01(\tR\x08pipeline\x12\x16\n\x06format\x18\n \x01(\tR\x06format\x12\x1d\n\ncreated_at\x18\x0b \x01(\x03R\tcreatedAt\x12\x16\n\x06status\x18\x0c \x01(\tR\x06status\x12\x1e\n\nconclusion\x18\r \x01(\tR\nconclusion\x12#\n\rprofile_bytes\x18\x0e \x01(\x0cR\x0cprofileBytes\x12!\n\x0cparams_bytes\x18\x0f \x01(\x0cR\x0bparamsBytes\x12\x16\n\x06source\x18\x10 \x01(\tR\x06source\x12\x10\n\x03log\x18\x11 \x01(\x0cR\x03log\x12\x17\n\x07log_num\x18\x12 \x01(\rR\x06logNum\x12\x10\n\x03rdi\x18\x13 \x01(\tR\x03rdi"=\n\tArtifacts\x120\n\tartifacts\x18\x01 \x03(\x0b2\x12.clientpb.ArtifactR\tartifacts"\xbd\x01\n\x07Profile\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n\x06target\x18\x02 \x01(\tR\x06target\x12\x14\n\x05proxy\x18\x04 \x01(\tR\x05proxy\x12\x16\n\x06params\x18\x08 \x01(\tR\x06params\x12\x1f\n\x0bpipeline_id\x18\t \x01(\tR\npipelineId\x12\x18\n\x07content\x18\x0b \x01(\x0cR\x07content\x12\x1d\n\ncreated_at\x18\x0c \x01(\x03R\tcreatedAt"9\n\x08Profiles\x12-\n\x08profiles\x18\x01 \x03(\x0b2\x11.clientpb.ProfileR\x08profiles"\xee\x01\n\x0fRegisterSession\x12\x1d\n\nsession_id\x18\x01 \x01(\tR\tsessionId\x12\x1f\n\x0bpipeline_id\x18\x02 \x01(\tR\npipelineId\x12\x1f\n\x0blistener_id\x18\x03 \x01(\tR\nlistenerId\x12\x16\n\x06target\x18\x04 \x01(\tR\x06target\x12\x15\n\x06raw_id\x18\x05 \x01(\rR\x05rawId\x12\x12\n\x04type\x18\x06 \x01(\tR\x04type\x127\n\rregister_data\x18\x07 \x01(\x0b2\x12.modulepb.RegisterR\x0cregisterData"\x91\x01\n\x10RegisterListener\x12\x0e\n\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n\x04host\x18\x02 \x01(\tR\x04host\x12\x12\n\x04name\x18\x03 \x01(\tR\x04name\x12\x12\n\x04addr\x18\x04 \x01(\tR\x04addr\x121\n\tpipelines\x18\x05 \x01(\x0b2\x13.clientpb.PipelinesR\tpipelines"\xa8\x01\n\x0cSpiteRequest\x12\x1f\n\x0blistener_id\x18\x01 \x01(\tR\nlistenerId\x12+\n\x07session\x18\x02 \x01(\x0b2\x11.clientpb.SessionR\x07session\x12"\n\x04task\x18\x03 \x01(\x0b2\x0e.clientpb.TaskR\x04task\x12&\n\x05spite\x18\x04 \x01(\x0b2\x10.implantpb.SpiteR\x05spite"\x90\x01\n\rSpiteResponse\x12\x1f\n\x0blistener_id\x18\x01 \x01(\tR\nlistenerId\x12\x1d\n\nsession_id\x18\x02 \x01(\tR\tsessionId\x12\x17\n\x07task_id\x18\x03 \x01(\rR\x06taskId\x12&\n\x05spite\x18\x04 \x01(\x0b2\x10.implantpb.SpiteR\x05spite"=\n\tPipelines\x120\n\tpipelines\x18\x01 \x03(\x0b2\x12.clientpb.PipelineR\tpipelines"\x8a\x04\n\x08Pipeline\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n\x06enable\x18\x02 \x01(\x08R\x06enable\x12\x12\n\x04type\x18\x03 \x01(\tR\x04type\x12\x1f\n\x0blistener_id\x18\x04 \x01(\tR\nlistenerId\x12\x16\n\x06parser\x18\x05 \x01(\tR\x06parser\x12\x1f\n\x03tls\x18\x08 \x01(\x0b2\r.clientpb.TLSR\x03tls\x124\n\nencryption\x18\t \x03(\x0b2\x14.clientpb.EncryptionR\nencryption\x12\x0e\n\x02ip\x18\n \x01(\tR\x02ip\x12\x1b\n\tcert_name\x18\x0b \x01(\tR\x08certName\x12(\n\x06secure\x18\x0c \x01(\x0b2\x10.clientpb.SecureR\x06secure\x12)\n\x03tcp\x18\x14 \x01(\x0b2\x15.clientpb.TCPPipelineH\x00R\x03tcp\x12,\n\x04bind\x18\x15 \x01(\x0b2\x16.clientpb.BindPipelineH\x00R\x04bind\x12!\n\x03rem\x18\x16 \x01(\x0b2\r.clientpb.REMH\x00R\x03rem\x12%\n\x03web\x18\x17 \x01(\x0b2\x11.clientpb.WebsiteH\x00R\x03web\x12,\n\x04http\x18\x18 \x01(\x0b2\x16.clientpb.HTTPPipelineH\x00R\x04httpB\x06\n\x04body"\x90\x01\n\x0cCtrlPipeline\x12\x1f\n\x0blistener_id\x18\x01 \x01(\tR\nlistenerId\x12\x12\n\x04name\x18\x02 \x01(\tR\x04name\x12.\n\x08pipeline\x18\x05 \x01(\x0b2\x12.clientpb.PipelineR\x08pipeline\x12\x1b\n\tcert_name\x18\x06 \x01(\tR\x08certName"\xce\x01\n\x03TLS\x12"\n\x04cert\x18\x01 \x01(\x0b2\x0e.clientpb.CertR\x04cert\x12\x1e\n\x02ca\x18\x02 \x01(\x0b2\x0e.clientpb.CertR\x02ca\x12\x16\n\x06enable\x18\x04 \x01(\x08R\x06enable\x12\x12\n\x04acme\x18\x05 \x01(\x08R\x04acme\x12\x16\n\x06domain\x18\x06 \x01(\tR\x06domain\x12?\n\x0ccert_subject\x18\x07 \x01(\x0b2\x1c.clientpb.CertificateSubjectR\x0bcertSubject",\n\x05Certs\x12#\n\x05certs\x18\x01 \x03(\x0b2\r.clientpb.TLSR\x05certs"T\n\x04Cert\x12\x12\n\x04cert\x18\x01 \x01(\tR\x04cert\x12\x10\n\x03key\x18\x02 \x01(\tR\x03key\x12\x12\n\x04name\x18\x03 \x01(\tR\x04name\x12\x12\n\x04type\x18\x04 \x01(\tR\x04type"\x8a\x01\n\x12CertificateSubject\x12\x0e\n\x02cn\x18\x01 \x01(\tR\x02cn\x12\x0c\n\x01o\x18\x02 \x01(\tR\x01o\x12\x0c\n\x01c\x18\x03 \x01(\tR\x01c\x12\x0c\n\x01l\x18\x04 \x01(\tR\x01l\x12\x0e\n\x02ou\x18\x05 \x01(\tR\x02ou\x12\x0e\n\x02st\x18\x06 \x01(\tR\x02st\x12\x1a\n\x08validity\x18\x07 \x01(\tR\x08validity"2\n\nEncryption\x12\x12\n\x04type\x18\x02 \x01(\tR\x04type\x12\x10\n\x03key\x18\x03 \x01(\tR\x03key"C\n\x0cBindPipeline\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x1f\n\x0blistener_id\x18\x02 \x01(\tR\nlistenerId"\xb0\x02\n\x03REM\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x1f\n\x0blistener_id\x18\x02 \x01(\tR\nlistenerId\x12\x12\n\x04port\x18\x03 \x01(\rR\x04port\x12\x12\n\x04host\x18\x04 \x01(\tR\x04host\x12\x18\n\x07console\x18\x05 \x01(\tR\x07console\x12\x12\n\x04link\x18\x06 \x01(\tR\x04link\x12\x1c\n\tsubscribe\x18\x07 \x01(\tR\tsubscribe\x121\n\x06agents\x18\n \x03(\x0b2\x19.clientpb.REM.AgentsEntryR\x06agents\x1aM\n\x0bAgentsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12(\n\x05value\x18\x02 \x01(\x0b2\x12.clientpb.REMAgentR\x05value:\x028\x01"7\n\tREMAgents\x12*\n\x06agents\x18\x01 \x03(\x0b2\x12.clientpb.REMAgentR\x06agents"\xa7\x01\n\x08REMAgent\x12\x1f\n\x0bpipeline_id\x18\x01 \x01(\tR\npipelineId\x12\x0e\n\x02id\x18\x02 \x01(\tR\x02id\x12\x10\n\x03mod\x18\x03 \x01(\tR\x03mod\x12\x14\n\x05local\x18\x04 \x01(\tR\x05local\x12\x16\n\x06remote\x18\x05 \x01(\tR\x06remote\x12\x16\n\x06enable\x18\x06 \x01(\x08R\x06enable\x12\x12\n\x04args\x18\x07 \x03(\tR\x04args"V\n\x06RemLog\x12\x1f\n\x0bpipeline_id\x18\x01 \x01(\tR\npipelineId\x12\x19\n\x08agent_id\x18\x02 \x01(\tR\x07agentId\x12\x10\n\x03log\x18\x03 \x01(\tR\x03log"\x80\x01\n\x0bTCPPipeline\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x1f\n\x0blistener_id\x18\x02 \x01(\tR\nlistenerId\x12\x12\n\x04port\x18\x03 \x01(\rR\x04port\x12\x12\n\x04host\x18\x04 \x01(\tR\x04host\x12\x14\n\x05proxy\x18\x05 \x01(\tR\x05proxy"\x99\x01\n\x0cHTTPPipeline\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x1f\n\x0blistener_id\x18\x02 \x01(\tR\nlistenerId\x12\x12\n\x04port\x18\x03 \x01(\rR\x04port\x12\x12\n\x04host\x18\x04 \x01(\tR\x04host\x12\x16\n\x06params\x18\x05 \x01(\tR\x06params\x12\x14\n\x05proxy\x18\x06 \x01(\tR\x05proxy"\xfb\x01\n\nWebContent\x12\x0e\n\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n\nwebsite_id\x18\x02 \x01(\tR\twebsiteId\x12\x12\n\x04file\x18\x03 \x01(\tR\x04file\x12\x12\n\x04path\x18\x04 \x01(\tR\x04path\x12\x12\n\x04type\x18\x05 \x01(\tR\x04type\x12!\n\x0ccontent_type\x18\x07 \x01(\tR\x0bcontentType\x12\x12\n\x04size\x18\x06 \x01(\x04R\x04size\x12\x10\n\x03url\x18\x08 \x01(\tR\x03url\x12\x18\n\x07content\x18\t \x01(\x0cR\x07content\x12\x1f\n\x0blistener_id\x18\n \x01(\tR\nlistenerId"\xf6\x01\n\x07Website\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x1f\n\x0blistener_id\x18\x02 \x01(\tR\nlistenerId\x12\x12\n\x04port\x18\x03 \x01(\rR\x04port\x12\x12\n\x04root\x18\x04 \x01(\tR\x04root\x12;\n\x08contents\x18\x06 \x03(\x0b2\x1f.clientpb.Website.ContentsEntryR\x08contents\x1aQ\n\rContentsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12*\n\x05value\x18\x02 \x01(\x0b2\x14.clientpb.WebContentR\x05value:\x028\x01"9\n\x08Websites\x12-\n\x08websites\x18\x01 \x03(\x0b2\x11.clientpb.WebsiteR\x08websites"?\n\x0bWebContents\x120\n\x08contents\x18\x01 \x03(\x0b2\x14.clientpb.WebContentR\x08contents"\x80\x01\n\x07Polling\x12\x0e\n\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n\nsession_id\x18\x02 \x01(\tR\tsessionId\x12\x1a\n\x08interval\x18\x03 \x01(\x04R\x08interval\x12\x14\n\x05tasks\x18\x04 \x03(\rR\x05tasks\x12\x14\n\x05force\x18\x05 \x01(\x08R\x05force"\x85\x04\n\x0bBuildConfig\x12\x1c\n\tbuildName\x18\x01 \x01(\tR\tbuildName\x12\x1c\n\tbuildType\x18\x02 \x01(\tR\tbuildType\x12\x16\n\x06target\x18\x03 \x01(\tR\x06target\x12\x16\n\x06source\x18\x04 \x01(\tR\x06source\x12 \n\x0bprofileName\x18\x05 \x01(\tR\x0bprofileName\x12\x1f\n\x0bartifact_id\x18\x06 \x01(\rR\nartifactId\x12%\n\x0emalefic_config\x18\x07 \x01(\x0cR\rmaleficConfig\x12%\n\x0eprelude_config\x18\x08 \x01(\x0cR\rpreludeConfig\x126\n\tresources\x18\t \x01(\x0b2\x18.clientpb.BuildResourcesR\tresources\x125\n\x06docker\x18\n \x01(\x0b2\x1b.clientpb.DockerBuildConfigH\x00R\x06docker\x12H\n\rgithub_action\x18\x0b \x01(\x0b2!.clientpb.GithubActionBuildConfigH\x00R\x0cgithubAction\x12/\n\x04saas\x18\x0c \x01(\x0b2\x19.clientpb.SaasBuildConfigH\x00R\x04saasB\x0f\n\rsource_config"C\n\x0eBuildResources\x121\n\x07entries\x18\x01 \x03(\x0b2\x17.clientpb.ResourceEntryR\x07entries"E\n\rResourceEntry\x12\x1a\n\x08filename\x18\x01 \x01(\tR\x08filename\x12\x18\n\x07content\x18\x02 \x01(\x0cR\x07content"N\n\x11DockerBuildConfig\x12\x1f\n\x0bremote_host\x18\x01 \x01(\tR\nremoteHost\x12\x18\n\x07volumes\x18\x02 \x03(\tR\x07volumes"\x99\x02\n\x17GithubActionBuildConfig\x12\x14\n\x05owner\x18\x01 \x01(\tR\x05owner\x12\x12\n\x04repo\x18\x02 \x01(\tR\x04repo\x12\x14\n\x05token\x18\x03 \x01(\tR\x05token\x12\x1f\n\x0bworkflow_id\x18\x04 \x01(\tR\nworkflowId\x12E\n\x06inputs\x18\x05 \x03(\x0b2-.clientpb.GithubActionBuildConfig.InputsEntryR\x06inputs\x12\x1b\n\tis_remove\x18\x06 \x01(\x08R\x08isRemove\x1a9\n\x0bInputsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01"\xb7\x01\n\x0fSaasBuildConfig\x12\x10\n\x03url\x18\x01 \x01(\tR\x03url\x12\x14\n\x05token\x18\x02 \x01(\tR\x05token\x12@\n\x07headers\x18\x03 \x03(\x0b2&.clientpb.SaasBuildConfig.HeadersEntryR\x07headers\x1a:\n\x0cHeadersEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01"\x94\x01\n\x14GithubWorkflowConfig\x12\x14\n\x05owner\x18\x01 \x01(\tR\x05owner\x12\x12\n\x04repo\x18\x02 \x01(\tR\x04repo\x12\x1f\n\x0bworkflow_id\x18\x03 \x01(\tR\nworkflowId\x12\x14\n\x05token\x18\x04 \x01(\tR\x05token\x12\x1b\n\tis_remove\x18\x05 \x01(\x08R\x08isRemove"I\n\x0fGithubWorkflows\x126\n\tworkflows\x18\x01 \x03(\x0b2\x18.clientpb.GithubWorkflowR\tworkflows"\x81\x02\n\x0eGithubWorkflow\x12\x0e\n\x02id\x18\x01 \x01(\x03R\x02id\x12\x17\n\x07node_id\x18\x02 \x01(\tR\x06nodeId\x12\x12\n\x04name\x18\x03 \x01(\tR\x04name\x12\x12\n\x04path\x18\x04 \x01(\tR\x04path\x12\x16\n\x06status\x18\x05 \x01(\tR\x06status\x12\x1d\n\ncreated_at\x18\x06 \x01(\tR\tcreatedAt\x12\x1d\n\nupdated_at\x18\x07 \x01(\tR\tupdatedAt\x12\x10\n\x03url\x18\x08 \x01(\tR\x03url\x12\x19\n\x08html_url\x18\t \x01(\tR\x07htmlUrl\x12\x1b\n\tbadge_url\x18\n \x01(\tR\x08badgeUrl"\x9b\x01\n\x0bLicenseInfo\x12\x1b\n\tuser_name\x18\x01 \x01(\tR\x08userName\x12\x12\n\x04type\x18\x02 \x01(\tR\x04type\x12\x1b\n\texpire_at\x18\x03 \x01(\tR\x08expireAt\x12\x1f\n\x0bbuild_count\x18\x04 \x01(\x03R\nbuildCount\x12\x1d\n\nmax_builds\x18\x05 \x01(\x03R\tmaxBuilds"\xbf\x04\n\x06Notify\x12\'\n\x0ftelegram_enable\x18\x01 \x01(\x08R\x0etelegramEnable\x12(\n\x10telegram_api_key\x18\x02 \x01(\tR\x0etelegramApiKey\x12(\n\x10telegram_chat_id\x18\x03 \x01(\x03R\x0etelegramChatId\x12\'\n\x0fdingtalk_enable\x18\x04 \x01(\x08R\x0edingtalkEnable\x12\'\n\x0fdingtalk_secret\x18\x05 \x01(\tR\x0edingtalkSecret\x12%\n\x0edingtalk_token\x18\x06 \x01(\tR\rdingtalkToken\x12\x1f\n\x0blark_enable\x18\x07 \x01(\x08R\nlarkEnable\x12(\n\x10lark_webhook_url\x18\x08 \x01(\tR\x0elarkWebhookUrl\x12+\n\x11serverchan_enable\x18\t \x01(\x08R\x10serverchanEnable\x12%\n\x0eserverchan_url\x18\n \x01(\tR\rserverchanUrl\x12\'\n\x0fpushplus_enable\x18\x0b \x01(\x08R\x0epushplusEnable\x12%\n\x0epushplus_token\x18\x0c \x01(\tR\rpushplusToken\x12%\n\x0epushplus_topic\x18\r \x01(\tR\rpushplusTopic\x12)\n\x10pushplus_channel\x18\x0e \x01(\tR\x0fpushplusChannel"\xa4\x02\n\x07Context\x12\x0e\n\x02id\x18\x01 \x01(\tR\x02id\x12+\n\x07session\x18\x02 \x01(\x0b2\x11.clientpb.SessionR\x07session\x12"\n\x04task\x18\x03 \x01(\x0b2\x0e.clientpb.TaskR\x04task\x12.\n\x08pipeline\x18\x04 \x01(\x0b2\x12.clientpb.PipelineR\x08pipeline\x12.\n\x08listener\x18\x05 \x01(\x0b2\x12.clientpb.ListenerR\x08listener\x12\x12\n\x04type\x18\x06 \x01(\tR\x04type\x12\x14\n\x05value\x18\x07 \x01(\x0cR\x05value\x12\x18\n\x07content\x18\x08 \x01(\x0cR\x07content\x12\x14\n\x05nonce\x18\t \x01(\tR\x05nonce"9\n\x08Contexts\x12-\n\x08contexts\x18\x01 \x03(\x0b2\x11.clientpb.ContextR\x08contexts"I\n\x07KeyPair\x12\x1d\n\npublic_key\x18\x01 \x01(\tR\tpublicKey\x12\x1f\n\x0bprivate_key\x18\x02 \x01(\tR\nprivateKey"\x96\x01\n\x06Secure\x12\x16\n\x06enable\x18\x01 \x01(\x08R\x06enable\x128\n\x0eserver_keypair\x18\x02 \x01(\x0b2\x11.clientpb.KeyPairR\rserverKeypair\x12:\n\x0fimplant_keypair\x18\x03 \x01(\x0b2\x11.clientpb.KeyPairR\x0eimplantKeypairBFZDgithub.com/chainreactors/malice-network/helper/proto/client/clientpbb\x06proto3'
+)

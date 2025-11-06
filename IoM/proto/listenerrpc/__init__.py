@@ -11,8 +11,12 @@ from typing import TYPE_CHECKING
 import betterproto2
 import grpc
 from betterproto2 import grpclib as betterproto2_grpclib
-from betterproto2.grpclib.grpclib_client import MetadataLike
-from grpclib.metadata import Deadline
+
+from ..google_proto_descriptor_pool import default_google_proto_descriptor_pool
+
+if TYPE_CHECKING:
+    from betterproto2.grpclib.grpclib_client import MetadataLike
+    from grpclib.metadata import Deadline
 
 _COMPILER_VERSION = "0.9.0"
 betterproto2.check_compiler_version(_COMPILER_VERSION)
@@ -1099,3 +1103,7 @@ class ListenerRpcStub(betterproto2_grpclib.ServiceStub):
 
 from .. import clientpb as _clientpb__
 from .. import modulepb as _modulepb__
+
+SERVICES_LISTENERRPC_SERVICE_PROTO_DESCRIPTOR = default_google_proto_descriptor_pool.AddSerializedFile(
+    b'\n"services/listenerrpc/service.proto\x12\x0blistenerrpc\x1a\x1cclient/clientpb/client.proto\x1a\x1eimplant/implantpb/module.proto2\x87\x12\n\x0bListenerRPC\x12B\n\x0bSpiteStream\x12\x17.clientpb.SpiteResponse\x1a\x16.clientpb.SpiteRequest(\x010\x01\x127\n\tJobStream\x12\x13.clientpb.JobStatus\x1a\x11.clientpb.JobCtrl(\x010\x01\x126\n\x08Register\x12\x19.clientpb.RegisterSession\x1a\x0f.clientpb.Empty\x12-\n\x07SysInfo\x12\x11.modulepb.SysInfo\x1a\x0f.clientpb.Empty\x12*\n\x07Checkin\x12\x0e.modulepb.Ping\x1a\x0f.clientpb.Empty\x125\n\x0fInitBindSession\x12\x11.modulepb.Request\x1a\x0f.clientpb.Empty\x12?\n\x10RegisterListener\x12\x1a.clientpb.RegisterListener\x1a\x0f.clientpb.Empty\x127\n\x10RegisterPipeline\x12\x12.clientpb.Pipeline\x1a\x0f.clientpb.Empty\x128\n\rStartPipeline\x12\x16.clientpb.CtrlPipeline\x1a\x0f.clientpb.Empty\x127\n\x0cStopPipeline\x12\x16.clientpb.CtrlPipeline\x1a\x0f.clientpb.Empty\x129\n\x0eDeletePipeline\x12\x16.clientpb.CtrlPipeline\x1a\x0f.clientpb.Empty\x128\n\rListPipelines\x12\x12.clientpb.Listener\x1a\x13.clientpb.Pipelines\x123\n\x0cSyncPipeline\x12\x12.clientpb.Pipeline\x1a\x0f.clientpb.Empty\x126\n\x0fRegisterWebsite\x12\x12.clientpb.Pipeline\x1a\x0f.clientpb.Empty\x127\n\x0cStartWebsite\x12\x16.clientpb.CtrlPipeline\x1a\x0f.clientpb.Empty\x126\n\x0bStopWebsite\x12\x16.clientpb.CtrlPipeline\x1a\x0f.clientpb.Empty\x128\n\rDeleteWebsite\x12\x16.clientpb.CtrlPipeline\x1a\x0f.clientpb.Empty\x127\n\x0cListWebsites\x12\x12.clientpb.Listener\x1a\x13.clientpb.Pipelines\x12:\n\x0eListWebContent\x12\x11.clientpb.Website\x1a\x15.clientpb.WebContents\x12<\n\x11AddWebsiteContent\x12\x11.clientpb.Website\x1a\x14.clientpb.WebContent\x12B\n\x14UpdateWebsiteContent\x12\x14.clientpb.WebContent\x1a\x14.clientpb.WebContent\x12=\n\x14RemoveWebsiteContent\x12\x14.clientpb.WebContent\x1a\x0f.clientpb.Empty\x122\n\x0bRegisterRem\x12\x12.clientpb.Pipeline\x1a\x0f.clientpb.Empty\x123\n\x08StartRem\x12\x16.clientpb.CtrlPipeline\x1a\x0f.clientpb.Empty\x122\n\x07StopRem\x12\x16.clientpb.CtrlPipeline\x1a\x0f.clientpb.Empty\x124\n\tDeleteRem\x12\x16.clientpb.CtrlPipeline\x1a\x0f.clientpb.Empty\x123\n\x08ListRems\x12\x12.clientpb.Listener\x1a\x13.clientpb.Pipelines\x125\n\x0eHealthCheckRem\x12\x12.clientpb.Pipeline\x1a\x0f.clientpb.Empty\x123\n\x0cRemAgentCtrl\x12\x12.clientpb.REMAgent\x1a\x0f.clientpb.Empty\x123\n\x0cRemAgentStop\x12\x12.clientpb.REMAgent\x1a\x0f.clientpb.Empty\x123\n\x0bRemAgentLog\x12\x12.clientpb.REMAgent\x1a\x10.clientpb.RemLog\x120\n\nNewProfile\x12\x11.clientpb.Profile\x1a\x0f.clientpb.Empty\x126\n\x0cFindArtifact\x12\x12.clientpb.Artifact\x1a\x12.clientpb.Artifact\x122\n\x05Build\x12\x15.clientpb.BuildConfig\x1a\x12.clientpb.Artifact\x126\n\tSyncBuild\x12\x15.clientpb.BuildConfig\x1a\x12.clientpb.Artifact\x122\n\x08BuildLog\x12\x12.clientpb.Artifact\x1a\x12.clientpb.Artifact\x12;\n\x0bCheckSource\x12\x15.clientpb.BuildConfig\x1a\x15.clientpb.BuildConfig\x127\n\x10GenerateSelfCert\x12\x12.clientpb.Pipeline\x1a\x0f.clientpb.Empty\x127\n\x10GenerateAcmeCert\x12\x12.clientpb.Pipeline\x1a\x0f.clientpb.Empty\x123\n\x0cSaveAcmeCert\x12\x12.clientpb.Pipeline\x1a\x0f.clientpb.Empty\x125\n\x0bGetArtifact\x12\x12.clientpb.Artifact\x1a\x12.clientpb.ArtifactBKZIgithub.com/chainreactors/malice-network/helper/proto/services/listenerrpcb\x06proto3'
+)

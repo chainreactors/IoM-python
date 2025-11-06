@@ -77,8 +77,10 @@ import typing
 
 import betterproto2
 import pydantic
+from google.protobuf.descriptor import Descriptor
 from pydantic.dataclasses import dataclass
 
+from ..google_proto_descriptor_pool import default_google_proto_descriptor_pool
 from ..message_pool import default_message_pool
 
 _COMPILER_VERSION = "0.9.0"
@@ -87,6 +89,11 @@ betterproto2.check_compiler_version(_COMPILER_VERSION)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Ack(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["ACK"]
+
     id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -101,6 +108,11 @@ default_message_pool.register_message("modulepb", "ACK", Ack)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Addon(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Addon"]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -119,6 +131,11 @@ default_message_pool.register_message("modulepb", "Addon", Addon)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Addons(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Addons"]
+
     addons: "list[Addon]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -129,6 +146,13 @@ default_message_pool.register_message("modulepb", "Addons", Addons)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class BinaryResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "BinaryResponse"
+        ]
+
     data: "bytes" = betterproto2.field(1, betterproto2.TYPE_BYTES)
     """
     common return, bof BeaconOutput
@@ -153,6 +177,11 @@ default_message_pool.register_message("modulepb", "BinaryResponse", BinaryRespon
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Block(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Block"]
+
     block_id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -167,6 +196,13 @@ default_message_pool.register_message("modulepb", "Block", Block)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class BypassRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "BypassRequest"
+        ]
+
     etw: "bool" = betterproto2.field(1, betterproto2.TYPE_BOOL)
 
     amsi: "bool" = betterproto2.field(2, betterproto2.TYPE_BOOL)
@@ -179,6 +215,13 @@ default_message_pool.register_message("modulepb", "BypassRequest", BypassRequest
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ChownRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "ChownRequest"
+        ]
+
     path: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -199,6 +242,13 @@ default_message_pool.register_message("modulepb", "ChownRequest", ChownRequest)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class CurlRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "CurlRequest"
+        ]
+
     url: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -231,6 +281,13 @@ default_message_pool.register_message("modulepb", "CurlRequest", CurlRequest)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class DownloadRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "DownloadRequest"
+        ]
+
     path: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -255,6 +312,13 @@ default_message_pool.register_message("modulepb", "DownloadRequest", DownloadReq
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class DownloadResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "DownloadResponse"
+        ]
+
     checksum: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -275,6 +339,13 @@ default_message_pool.register_message("modulepb", "DownloadResponse", DownloadRe
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class DriveInfo(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "DriveInfo"
+        ]
+
     path: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -310,6 +381,13 @@ default_message_pool.register_message("modulepb", "DriveInfo", DriveInfo)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class EnumDriversResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "EnumDriversResponse"
+        ]
+
     drives: "list[DriveInfo]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -322,6 +400,13 @@ default_message_pool.register_message(
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ExecRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "ExecRequest"
+        ]
+
     path: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -346,6 +431,13 @@ default_message_pool.register_message("modulepb", "ExecRequest", ExecRequest)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ExecResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "ExecResponse"
+        ]
+
     status_code: "typing.Annotated[int, pydantic.Field(ge=-2**31, le=2**31 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_INT32)
     )
@@ -366,6 +458,13 @@ default_message_pool.register_message("modulepb", "ExecResponse", ExecResponse)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ExecuteAddon(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "ExecuteAddon"
+        ]
+
     addon: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -380,6 +479,13 @@ default_message_pool.register_message("modulepb", "ExecuteAddon", ExecuteAddon)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ExecuteBinary(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "ExecuteBinary"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -447,6 +553,13 @@ default_message_pool.register_message("modulepb", "ExecuteBinary", ExecuteBinary
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ExecuteCommand(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "ExecuteCommand"
+        ]
+
     command: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -461,6 +574,13 @@ default_message_pool.register_message("modulepb", "ExecuteCommand", ExecuteComma
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class FFmpegRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "FFmpegRequest"
+        ]
+
     action: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -487,6 +607,13 @@ default_message_pool.register_message("modulepb", "FFmpegRequest", FFmpegRequest
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class FileInfo(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "FileInfo"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -515,6 +642,13 @@ default_message_pool.register_message("modulepb", "FileInfo", FileInfo)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class GetSystem(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "GetSystem"
+        ]
+
     bin: "bytes" = betterproto2.field(1, betterproto2.TYPE_BYTES)
 
     pid: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
@@ -527,6 +661,13 @@ default_message_pool.register_message("modulepb", "GetSystem", GetSystem)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class IfconfigResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "IfconfigResponse"
+        ]
+
     net_interfaces: "list[NetInterface]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -537,6 +678,11 @@ default_message_pool.register_message("modulepb", "IfconfigResponse", IfconfigRe
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Init(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Init"]
+
     data: "bytes" = betterproto2.field(1, betterproto2.TYPE_BYTES)
 
 
@@ -545,6 +691,11 @@ default_message_pool.register_message("modulepb", "Init", Init)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Inject(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Inject"]
+
     bin: "bytes" = betterproto2.field(1, betterproto2.TYPE_BYTES)
 
     pid: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
@@ -560,6 +711,13 @@ class KeyExchangeRequest(betterproto2.Message):
     """
     Age 密钥交换相关消息
     """
+
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "KeyExchangeRequest"
+        ]
 
     public_key: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
@@ -595,6 +753,13 @@ default_message_pool.register_message(
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class KeyExchangeResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "KeyExchangeResponse"
+        ]
+
     public_key: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -610,6 +775,13 @@ default_message_pool.register_message(
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class LoadAddon(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "LoadAddon"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -630,6 +802,13 @@ default_message_pool.register_message("modulepb", "LoadAddon", LoadAddon)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class LoadModule(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "LoadModule"
+        ]
+
     bundle: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -642,6 +821,13 @@ default_message_pool.register_message("modulepb", "LoadModule", LoadModule)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class LsResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "LsResponse"
+        ]
+
     path: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -658,6 +844,13 @@ default_message_pool.register_message("modulepb", "LsResponse", LsResponse)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Modules(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "Modules"
+        ]
+
     modules: "list[typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]]" = betterproto2.field(
         1, betterproto2.TYPE_STRING, repeated=True
     )
@@ -668,6 +861,13 @@ default_message_pool.register_message("modulepb", "Modules", Modules)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class NetInterface(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "NetInterface"
+        ]
+
     index: "typing.Annotated[int, pydantic.Field(ge=-2**31, le=2**31 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_INT32)
     )
@@ -690,6 +890,13 @@ default_message_pool.register_message("modulepb", "NetInterface", NetInterface)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class NetstatResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "NetstatResponse"
+        ]
+
     socks: "list[SockTabEntry]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -700,6 +907,11 @@ default_message_pool.register_message("modulepb", "NetstatResponse", NetstatResp
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Os(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Os"]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -747,6 +959,11 @@ default_message_pool.register_message("modulepb", "Os", Os)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Ping(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Ping"]
+
     nonce: "typing.Annotated[int, pydantic.Field(ge=-2**31, le=2**31 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_INT32)
     )
@@ -757,6 +974,11 @@ default_message_pool.register_message("modulepb", "Ping", Ping)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Pipe(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Pipe"]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -773,6 +995,13 @@ default_message_pool.register_message("modulepb", "Pipe", Pipe)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class PipeRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "PipeRequest"
+        ]
+
     type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -787,6 +1016,13 @@ default_message_pool.register_message("modulepb", "PipeRequest", PipeRequest)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Process(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "Process"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -825,6 +1061,13 @@ default_message_pool.register_message("modulepb", "Process", Process)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class PsResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "PsResponse"
+        ]
+
     processes: "list[Process]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -838,6 +1081,13 @@ class PtyRequest(betterproto2.Message):
     """
     PTY
     """
+
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "PtyRequest"
+        ]
 
     type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
@@ -885,6 +1135,13 @@ default_message_pool.register_message("modulepb", "PtyRequest", PtyRequest)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class PtyResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "PtyResponse"
+        ]
+
     session_id: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -934,6 +1191,13 @@ default_message_pool.register_message("modulepb", "PtyResponse", PtyResponse)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Register(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "Register"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -971,6 +1235,13 @@ default_message_pool.register_message("modulepb", "Register", Register)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Registry(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "Registry"
+        ]
+
     hive: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -993,6 +1264,13 @@ class RegistryRequest(betterproto2.Message):
     wrap for client
     """
 
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "RegistryRequest"
+        ]
+
     type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1007,6 +1285,13 @@ default_message_pool.register_message("modulepb", "RegistryRequest", RegistryReq
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class RegistryWriteRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "RegistryWriteRequest"
+        ]
+
     hive: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1049,6 +1334,13 @@ class Request(betterproto2.Message):
     common empty request
     """
 
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "Request"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1077,6 +1369,13 @@ default_message_pool.register_message("modulepb", "Request", Request)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Response(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "Response"
+        ]
+
     output: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1103,6 +1402,13 @@ default_message_pool.register_message("modulepb", "Response", Response)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class RunAsRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "RunAsRequest"
+        ]
+
     username: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1153,6 +1459,13 @@ default_message_pool.register_message("modulepb", "RunAsRequest", RunAsRequest)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class SacrificeProcess(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "SacrificeProcess"
+        ]
+
     hidden: "bool" = betterproto2.field(1, betterproto2.TYPE_BOOL)
 
     block_dll: "bool" = betterproto2.field(2, betterproto2.TYPE_BOOL)
@@ -1173,6 +1486,11 @@ default_message_pool.register_message("modulepb", "SacrificeProcess", SacrificeP
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Secure(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Secure"]
+
     enable: "bool" = betterproto2.field(1, betterproto2.TYPE_BOOL)
 
     key: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
@@ -1202,6 +1520,13 @@ default_message_pool.register_message("modulepb", "Secure", Secure)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Service(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "Service"
+        ]
+
     config: "ServiceConfig | None" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, optional=True
     )
@@ -1216,6 +1541,13 @@ default_message_pool.register_message("modulepb", "Service", Service)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ServiceConfig(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "ServiceConfig"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1250,6 +1582,13 @@ class ServiceRequest(betterproto2.Message):
     wrap for client
     """
 
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "ServiceRequest"
+        ]
+
     type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1264,6 +1603,13 @@ default_message_pool.register_message("modulepb", "ServiceRequest", ServiceReque
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ServicesResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "ServicesResponse"
+        ]
+
     services: "list[Service]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -1274,6 +1620,13 @@ default_message_pool.register_message("modulepb", "ServicesResponse", ServicesRe
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class ServiceStatus(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "ServiceStatus"
+        ]
+
     current_state: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -1300,6 +1653,13 @@ default_message_pool.register_message("modulepb", "ServiceStatus", ServiceStatus
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class SockTabEntry(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "SockTabEntry"
+        ]
+
     local_addr: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1329,6 +1689,13 @@ default_message_pool.register_message("modulepb", "SockTabEntry", SockTabEntry)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Suicide(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "Suicide"
+        ]
+
     type: "typing.Annotated[int, pydantic.Field(ge=-2**31, le=2**31 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_INT32)
     )
@@ -1343,6 +1710,11 @@ default_message_pool.register_message("modulepb", "Suicide", Suicide)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Switch(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Switch"]
+
     urls: "list[typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]]" = betterproto2.field(
         1, betterproto2.TYPE_STRING, repeated=True
     )
@@ -1353,6 +1725,13 @@ default_message_pool.register_message("modulepb", "Switch", Switch)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class SysInfo(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "SysInfo"
+        ]
+
     filepath: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1375,6 +1754,13 @@ default_message_pool.register_message("modulepb", "SysInfo", SysInfo)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskCtrl(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "TaskCtrl"
+        ]
+
     task_id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -1389,6 +1775,13 @@ default_message_pool.register_message("modulepb", "TaskCtrl", TaskCtrl)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskInfo(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "TaskInfo"
+        ]
+
     task_id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -1411,6 +1804,13 @@ default_message_pool.register_message("modulepb", "TaskInfo", TaskInfo)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskListResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "TaskListResponse"
+        ]
+
     tasks: "list[TaskInfo]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -1421,6 +1821,13 @@ default_message_pool.register_message("modulepb", "TaskListResponse", TaskListRe
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskSchedule(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "TaskSchedule"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1461,6 +1868,13 @@ default_message_pool.register_message("modulepb", "TaskSchedule", TaskSchedule)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskScheduleRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "TaskScheduleRequest"
+        ]
+
     type: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1477,6 +1891,13 @@ default_message_pool.register_message(
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class TaskSchedulesResponse(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "TaskSchedulesResponse"
+        ]
+
     schedules: "list[TaskSchedule]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -1489,6 +1910,11 @@ default_message_pool.register_message(
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Timer(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name["Timer"]
+
     expression: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1501,6 +1927,13 @@ default_message_pool.register_message("modulepb", "Timer", Timer)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class UploadRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "UploadRequest"
+        ]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1525,6 +1958,13 @@ default_message_pool.register_message("modulepb", "UploadRequest", UploadRequest
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class WmiMethodRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "WmiMethodRequest"
+        ]
+
     namespace: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1551,6 +1991,13 @@ default_message_pool.register_message("modulepb", "WmiMethodRequest", WmiMethodR
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class WmiQueryRequest(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR.message_types_by_name[
+            "WmiQueryRequest"
+        ]
+
     namespace: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -1561,3 +2008,8 @@ class WmiQueryRequest(betterproto2.Message):
 
 
 default_message_pool.register_message("modulepb", "WmiQueryRequest", WmiQueryRequest)
+
+
+IMPLANT_IMPLANTPB_MODULE_PROTO_DESCRIPTOR = default_google_proto_descriptor_pool.AddSerializedFile(
+    b'\n\x1eimplant/implantpb/module.proto\x12\x08modulepb"\x1c\n\x04Ping\x12\x14\n\x05nonce\x18\x01 \x01(\x05R\x05nonce"\xf3\x01\n\x08Register\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n\x05proxy\x18\x02 \x01(\tR\x05proxy\x12\x16\n\x06module\x18\x03 \x03(\tR\x06module\x12\'\n\x06addons\x18\x04 \x03(\x0b2\x0f.modulepb.AddonR\x06addons\x12%\n\x05timer\x18\x05 \x01(\x0b2\x0f.modulepb.TimerR\x05timer\x12+\n\x07sysinfo\x18\x0b \x01(\x0b2\x11.modulepb.SysInfoR\x07sysinfo\x12(\n\x06secure\x18\x0c \x01(\x0b2\x10.modulepb.SecureR\x06secure"e\n\x06Secure\x12\x16\n\x06enable\x18\x01 \x01(\x08R\x06enable\x12\x10\n\x03key\x18\x02 \x01(\tR\x03key\x12\x12\n\x04type\x18\x03 \x01(\tR\x04type\x12\x1d\n\npublic_key\x18\x04 \x01(\tR\tpublicKey"\x85\x01\n\x12KeyExchangeRequest\x12\x1d\n\npublic_key\x18\x01 \x01(\tR\tpublicKey\x12\x1c\n\tsignature\x18\x02 \x01(\x0cR\tsignature\x12\x1c\n\ttimestamp\x18\x03 \x01(\x04R\ttimestamp\x12\x14\n\x05nonce\x18\x04 \x01(\tR\x05nonce"4\n\x13KeyExchangeResponse\x12\x1d\n\npublic_key\x18\x01 \x01(\tR\tpublicKey"\x1a\n\x04Init\x12\x12\n\x04data\x18\x01 \x01(\x0cR\x04data"\xad\x01\n\x07SysInfo\x12\x1a\n\x08filepath\x18\x01 \x01(\tR\x08filepath\x12\x18\n\x07workdir\x18\x02 \x01(\tR\x07workdir\x12!\n\x0cis_privilege\x18\x03 \x01(\x08R\x0bisPrivilege\x12\x1c\n\x02os\x18\x0b \x01(\x0b2\x0c.modulepb.OsR\x02os\x12+\n\x07process\x18\x0c \x01(\x0b2\x11.modulepb.ProcessR\x07process";\n\x07Suicide\x12\x12\n\x04type\x18\x01 \x01(\x05R\x04type\x12\x1c\n\ttimestamp\x18\x02 \x01(\x03R\ttimestamp"\xcb\x01\n\x07Request\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n\x05input\x18\x02 \x01(\tR\x05input\x12\x12\n\x04args\x18\x03 \x03(\tR\x04args\x125\n\x06params\x18\x04 \x03(\x0b2\x1d.modulepb.Request.ParamsEntryR\x06params\x12\x10\n\x03bin\x18\x05 \x01(\x0cR\x03bin\x1a9\n\x0bParamsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01"\xb1\x01\n\x08Response\x12\x16\n\x06output\x18\x01 \x01(\tR\x06output\x12\x14\n\x05error\x18\x02 \x01(\tR\x05error\x12*\n\x02kv\x18\x03 \x03(\x0b2\x1a.modulepb.Response.KvEntryR\x02kv\x12\x14\n\x05array\x18\x04 \x03(\tR\x05array\x1a5\n\x07KvEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01"R\n\rBypassRequest\x12\x10\n\x03ETW\x18\x01 \x01(\x08R\x03ETW\x12\x12\n\x04AMSI\x18\x02 \x01(\x08R\x04AMSI\x12\x1b\n\tblock_dll\x18\x03 \x01(\x08R\x08blockDll"m\n\x0cNetInterface\x12\x14\n\x05index\x18\x01 \x01(\x05R\x05index\x12\x12\n\x04name\x18\x02 \x01(\tR\x04name\x12\x10\n\x03mac\x18\x03 \x01(\tR\x03mac\x12!\n\x0cip_addresses\x18\x04 \x03(\tR\x0bipAddresses"\x96\x01\n\x0cSockTabEntry\x12\x1d\n\nlocal_addr\x18\x01 \x01(\tR\tlocalAddr\x12\x1f\n\x0bremote_addr\x18\x02 \x01(\tR\nremoteAddr\x12\x18\n\x07skState\x18\x03 \x01(\tR\x07skState\x12\x10\n\x03pid\x18\x05 \x01(\tR\x03pid\x12\x1a\n\x08protocol\x18\x06 \x01(\tR\x08protocol"?\n\x0fNetstatResponse\x12,\n\x05socks\x18\x01 \x03(\x0b2\x16.modulepb.SockTabEntryR\x05socks"N\n\x05Block\x12\x19\n\x08block_id\x18\x01 \x01(\rR\x07blockId\x12\x18\n\x07content\x18\x02 \x01(\x0cR\x07content\x12\x10\n\x03end\x18\x03 \x01(\x08R\x03end"A\n\x03ACK\x12\x0e\n\x02id\x18\x01 \x01(\rR\x02id\x12\x18\n\x07success\x18\x02 \x01(\x08R\x07success\x12\x10\n\x03end\x18\x03 \x01(\x08R\x03end"\xd1\x01\n\x02Os\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n\x07version\x18\x02 \x01(\tR\x07version\x12\x18\n\x07release\x18\x03 \x01(\tR\x07release\x12\x12\n\x04arch\x18\x04 \x01(\tR\x04arch\x12\x1a\n\x08username\x18\x05 \x01(\tR\x08username\x12\x1a\n\x08hostname\x18\x06 \x01(\tR\x08hostname\x12\x16\n\x06locale\x18\x07 \x01(\tR\x06locale\x12\x1f\n\x0bclr_version\x18\x08 \x03(\tR\nclrVersion"\xa7\x01\n\x07Process\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x10\n\x03pid\x18\x02 \x01(\rR\x03pid\x12\x12\n\x04ppid\x18\x03 \x01(\rR\x04ppid\x12\x14\n\x05owner\x18\x04 \x01(\tR\x05owner\x12\x12\n\x04arch\x18\x05 \x01(\tR\x04arch\x12\x12\n\x04path\x18\x06 \x01(\tR\x04path\x12\x12\n\x04args\x18\x07 \x01(\tR\x04args\x12\x10\n\x03uid\x18\x08 \x01(\tR\x03uid"?\n\x05Timer\x12\x1e\n\nexpression\x18\x01 \x01(\tR\nexpression\x12\x16\n\x06jitter\x18\x02 \x01(\x01R\x06jitter"\x8a\x01\n\x08FileInfo\x12\x12\n\x04Name\x18\x01 \x01(\tR\x04Name\x12\x14\n\x05IsDir\x18\x02 \x01(\x08R\x05IsDir\x12\x12\n\x04Size\x18\x03 \x01(\x04R\x04Size\x12\x18\n\x07ModTime\x18\x04 \x01(\x03R\x07ModTime\x12\x12\n\x04Mode\x18\x05 \x01(\rR\x04Mode\x12\x12\n\x04Link\x18\x06 \x01(\tR\x04Link"\x83\x01\n\x10SacrificeProcess\x12\x16\n\x06hidden\x18\x01 \x01(\x08R\x06hidden\x12\x1b\n\tblock_dll\x18\x02 \x01(\x08R\x08blockDll\x12\x10\n\x03etw\x18\x03 \x01(\x08R\x03etw\x12\x12\n\x04ppid\x18\x04 \x01(\rR\x04ppid\x12\x14\n\x05argue\x18\x05 \x01(\tR\x05argue"b\n\nLsResponse\x12\x12\n\x04Path\x18\x01 \x01(\tR\x04Path\x12\x16\n\x06Exists\x18\x02 \x01(\x08R\x06Exists\x12(\n\x05Files\x18\x03 \x03(\x0b2\x12.modulepb.FileInfoR\x05Files"\x9b\x01\n\tDriveInfo\x12\x12\n\x04path\x18\x01 \x01(\tR\x04path\x12\x1d\n\ndrive_type\x18\x02 \x01(\tR\tdriveType\x12\x1d\n\ntotal_size\x18\x03 \x01(\x04R\ttotalSize\x12\x1b\n\tfree_size\x18\x04 \x01(\x04R\x08freeSize\x12\x1f\n\x0bfile_system\x18\x05 \x01(\tR\nfileSystem"B\n\x13EnumDriversResponse\x12+\n\x06drives\x18\x01 \x03(\x0b2\x13.modulepb.DriveInfoR\x06drives"=\n\nPsResponse\x12/\n\tprocesses\x18\x01 \x03(\x0b2\x11.modulepb.ProcessR\tprocesses"\x9b\x01\n\x0bExecRequest\x12\x12\n\x04path\x18\x01 \x01(\tR\x04path\x12\x12\n\x04args\x18\x02 \x03(\tR\x04args\x12\x16\n\x06output\x18\x03 \x01(\x08R\x06output\x12\x1c\n\tsingleton\x18\x04 \x01(\x08R\tsingleton\x12\x1a\n\x08realtime\x18\x05 \x01(\x08R\x08realtime\x12\x12\n\x04ppid\x18\n \x01(\rR\x04ppid"\x83\x01\n\x0cExecResponse\x12\x1f\n\x0bstatus_code\x18\x01 \x01(\x05R\nstatusCode\x12\x16\n\x06stdout\x18\x02 \x01(\x0cR\x06stdout\x12\x16\n\x06stderr\x18\x03 \x01(\x0cR\x06stderr\x12\x10\n\x03pid\x18\x04 \x01(\rR\x03pid\x12\x10\n\x03end\x18\x05 \x01(\x08R\x03end"h\n\x0eBinaryResponse\x12\x12\n\x04data\x18\x01 \x01(\x0cR\x04data\x12\x18\n\x07message\x18\x02 \x01(\x0cR\x07message\x12\x10\n\x03err\x18\x04 \x01(\tR\x03err\x12\x16\n\x06status\x18\x03 \x01(\x05R\x06status"#\n\x07Modules\x12\x18\n\x07modules\x18\x01 \x03(\tR\x07modules"1\n\x06Addons\x12\'\n\x06addons\x18\x01 \x03(\x0b2\x0f.modulepb.AddonR\x06addons"G\n\x05Addon\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n\x04type\x18\x02 \x01(\tR\x04type\x12\x16\n\x06depend\x18\x03 \x01(\tR\x06depend"6\n\nLoadModule\x12\x16\n\x06bundle\x18\x01 \x01(\tR\x06bundle\x12\x10\n\x03bin\x18\x02 \x01(\x0cR\x03bin"]\n\tLoadAddon\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n\x04type\x18\x02 \x01(\tR\x04type\x12\x16\n\x06depend\x18\x03 \x01(\tR\x06depend\x12\x10\n\x03bin\x18\x04 \x01(\x0cR\x03bin"d\n\x0cExecuteAddon\x12\x14\n\x05addon\x18\x01 \x01(\tR\x05addon\x12>\n\x0eexecute_binary\x18\x02 \x01(\x0b2\x17.modulepb.ExecuteBinaryR\rexecuteBinary"\xed\x03\n\rExecuteBinary\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x10\n\x03bin\x18\x02 \x01(\x0cR\x03bin\x128\n\x05param\x18\x03 \x03(\x0b2".modulepb.ExecuteBinary.ParamEntryR\x05param\x12\x12\n\x04type\x18\x04 \x01(\tR\x04type\x12!\n\x0cprocess_name\x18\x05 \x01(\tR\x0bprocessName\x12\x12\n\x04args\x18\x06 \x03(\tR\x04args\x12\x1f\n\x0bentry_point\x18\x07 \x01(\tR\nentryPoint\x12\x12\n\x04data\x18\x08 \x01(\x0cR\x04data\x12\x16\n\x06output\x18\t \x01(\x08R\x06output\x12\x12\n\x04arch\x18\n \x01(\rR\x04arch\x12\x18\n\x07timeout\x18\x0b \x01(\rR\x07timeout\x128\n\tsacrifice\x18\x0c \x01(\x0b2\x1a.modulepb.SacrificeProcessR\tsacrifice\x12\x12\n\x04path\x18\r \x01(\tR\x04path\x12\x18\n\x07context\x18\x0e \x01(\tR\x07context\x12\x14\n\x05delay\x18\x0f \x01(\rR\x05delay\x1a8\n\nParamEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01"d\n\x0eExecuteCommand\x12\x18\n\x07command\x18\x01 \x01(\tR\x07command\x128\n\tsacrifice\x18\x02 \x01(\x0b2\x1a.modulepb.SacrificeProcessR\tsacrifice"\x97\x01\n\rUploadRequest\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n\x06target\x18\x02 \x01(\tR\x06target\x12\x12\n\x04priv\x18\x03 \x01(\rR\x04priv\x12\x12\n\x04data\x18\x04 \x01(\x0cR\x04data\x12\x16\n\x06hidden\x18\x05 \x01(\x08R\x06hidden\x12\x1a\n\x08override\x18\x06 \x01(\x08R\x08override"~\n\x0fDownloadRequest\x12\x12\n\x04path\x18\x01 \x01(\tR\x04path\x12\x12\n\x04name\x18\x02 \x01(\tR\x04name\x12\x1f\n\x0bbuffer_size\x18\x03 \x01(\rR\nbufferSize\x12\x10\n\x03dir\x18\x04 \x01(\x08R\x03dir\x12\x10\n\x03cur\x18\x05 \x01(\x05R\x03cur"n\n\x10DownloadResponse\x12\x1a\n\x08checksum\x18\x01 \x01(\tR\x08checksum\x12\x12\n\x04size\x18\x02 \x01(\x04R\x04size\x12\x10\n\x03cur\x18\x03 \x01(\x05R\x03cur\x12\x18\n\x07content\x18\x04 \x01(\x0cR\x07content"\xf7\x01\n\x0bCurlRequest\x12\x10\n\x03url\x18\x01 \x01(\tR\x03url\x12\x18\n\x07timeout\x18\x02 \x01(\x05R\x07timeout\x12\x16\n\x06method\x18\x03 \x01(\tR\x06method\x12\x12\n\x04body\x18\x04 \x01(\x0cR\x04body\x129\n\x06header\x18\x05 \x03(\x0b2!.modulepb.CurlRequest.HeaderEntryR\x06header\x12\x1a\n\x08hostname\x18\x06 \x01(\tR\x08hostname\x1a9\n\x0bHeaderEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01"d\n\x0cChownRequest\x12\x12\n\x04path\x18\x01 \x01(\tR\x04path\x12\x10\n\x03uid\x18\x02 \x01(\tR\x03uid\x12\x10\n\x03gid\x18\x03 \x01(\tR\x03gid\x12\x1c\n\trecursive\x18\x04 \x01(\x08R\trecursive"Q\n\x10IfconfigResponse\x12=\n\x0enet_interfaces\x18\x01 \x03(\x0b2\x16.modulepb.NetInterfaceR\rnetInterfaces"U\n\x0fRegistryRequest\x12\x12\n\x04type\x18\x01 \x01(\tR\x04type\x12.\n\x08registry\x18\x02 \x01(\x0b2\x12.modulepb.RegistryR\x08registry"D\n\x08Registry\x12\x12\n\x04hive\x18\x01 \x01(\tR\x04hive\x12\x12\n\x04path\x18\x02 \x01(\tR\x04path\x12\x10\n\x03key\x18\x03 \x01(\tR\x03key"\xee\x01\n\x14RegistryWriteRequest\x12\x12\n\x04hive\x18\x01 \x01(\tR\x04hive\x12\x12\n\x04path\x18\x02 \x01(\tR\x04path\x12\x10\n\x03key\x18\x03 \x01(\tR\x03key\x12!\n\x0cstring_value\x18\x05 \x01(\tR\x0bstringValue\x12\x1d\n\nbyte_value\x18\x06 \x01(\x0cR\tbyteValue\x12\x1f\n\x0bdword_value\x18\x07 \x01(\rR\ndwordValue\x12\x1f\n\x0bqword_value\x18\x08 \x01(\x04R\nqwordValue\x12\x18\n\x07regtype\x18\n \x01(\rR\x07regtype"]\n\x13TaskScheduleRequest\x12\x12\n\x04type\x18\x01 \x01(\tR\x04type\x122\n\x08taskschd\x18\x02 \x01(\x0b2\x16.modulepb.TaskScheduleR\x08taskschd"\xad\x02\n\x0cTaskSchedule\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n\x04path\x18\x02 \x01(\tR\x04path\x12\'\n\x0fexecutable_path\x18\x03 \x01(\tR\x0eexecutablePath\x12!\n\x0ctrigger_type\x18\x04 \x01(\rR\x0btriggerType\x12%\n\x0estart_boundary\x18\x05 \x01(\tR\rstartBoundary\x12 \n\x0bdescription\x18\x06 \x01(\tR\x0bdescription\x12\x18\n\x07enabled\x18\x07 \x01(\x08R\x07enabled\x12"\n\rlast_run_time\x18\x08 \x01(\tR\x0blastRunTime\x12"\n\rnext_run_time\x18\t \x01(\tR\x0bnextRunTime"M\n\x15TaskSchedulesResponse\x124\n\tschedules\x18\x01 \x03(\x0b2\x16.modulepb.TaskScheduleR\tschedules"W\n\x0eServiceRequest\x12\x12\n\x04type\x18\x01 \x01(\tR\x04type\x121\n\x07service\x18\x02 \x01(\x0b2\x17.modulepb.ServiceConfigR\x07service"\xd6\x01\n\rServiceConfig\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12!\n\x0cdisplay_name\x18\x02 \x01(\tR\x0bdisplayName\x12\'\n\x0fexecutable_path\x18\x03 \x01(\tR\x0eexecutablePath\x12\x1d\n\nstart_type\x18\x04 \x01(\rR\tstartType\x12#\n\rerror_control\x18\x05 \x01(\rR\x0cerrorControl\x12!\n\x0caccount_name\x18\x06 \x01(\tR\x0baccountName"\xad\x01\n\rServiceStatus\x12#\n\rcurrent_state\x18\x01 \x01(\rR\x0ccurrentState\x12\x1d\n\nprocess_id\x18\x02 \x01(\rR\tprocessId\x12\x1b\n\texit_code\x18\x03 \x01(\rR\x08exitCode\x12\x1e\n\ncheckpoint\x18\x04 \x01(\rR\ncheckpoint\x12\x1b\n\twait_hint\x18\x05 \x01(\rR\x08waitHint"k\n\x07Service\x12/\n\x06config\x18\x01 \x01(\x0b2\x17.modulepb.ServiceConfigR\x06config\x12/\n\x06status\x18\x02 \x01(\x0b2\x17.modulepb.ServiceStatusR\x06status"A\n\x10ServicesResponse\x12-\n\x08services\x18\x01 \x03(\x0b2\x11.modulepb.ServiceR\x08services"C\n\x0fWmiQueryRequest\x12\x1c\n\tnamespace\x18\x01 \x01(\tR\tnamespace\x12\x12\n\x04args\x18\x02 \x03(\tR\x04args"\xeb\x01\n\x10WmiMethodRequest\x12\x1c\n\tnamespace\x18\x01 \x01(\tR\tnamespace\x12\x1d\n\nclass_name\x18\x02 \x01(\tR\tclassName\x12\x1f\n\x0bmethod_name\x18\x03 \x01(\tR\nmethodName\x12>\n\x06params\x18\x04 \x03(\x0b2&.modulepb.WmiMethodRequest.ParamsEntryR\x06params\x1a9\n\x0bParamsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01"\xe0\x01\n\x0cRunAsRequest\x12\x1a\n\x08username\x18\x01 \x01(\tR\x08username\x12\x16\n\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1a\n\x08password\x18\x03 \x01(\tR\x08password\x12\x18\n\x07program\x18\x04 \x01(\tR\x07program\x12\x12\n\x04args\x18\x05 \x01(\tR\x04args\x12\x1f\n\x0buse_profile\x18\x06 \x01(\x08R\nuseProfile\x12\x18\n\x07netonly\x18\x07 \x01(\x08R\x07netonly\x12\x17\n\x07use_env\x18\x08 \x01(\x08R\x06useEnv"/\n\tGetSystem\x12\x10\n\x03bin\x18\x01 \x01(\x0cR\x03bin\x12\x10\n\x03pid\x18\x02 \x01(\rR\x03pid",\n\x06Inject\x12\x10\n\x03bin\x18\x01 \x01(\x0cR\x03bin\x12\x10\n\x03pid\x18\x02 \x01(\rR\x03pid"F\n\x04Pipe\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n\x06target\x18\x02 \x01(\tR\x06target\x12\x12\n\x04data\x18\x04 \x01(\x0cR\x04data"E\n\x0bPipeRequest\x12\x12\n\x04type\x18\x01 \x01(\tR\x04type\x12"\n\x04pipe\x18\x02 \x01(\x0b2\x0e.modulepb.PipeR\x04pipe"\x1c\n\x06Switch\x12\x12\n\x04urls\x18\x01 \x03(\tR\x04urls"3\n\x08TaskCtrl\x12\x17\n\x07task_id\x18\x01 \x01(\rR\x06taskId\x12\x0e\n\x02op\x18\x02 \x01(\tR\x02op"u\n\x08TaskInfo\x12\x17\n\x07task_id\x18\x01 \x01(\rR\x06taskId\x12\x12\n\x04last\x18\x02 \x01(\x04R\x04last\x12\x1d\n\nrecv_count\x18\x03 \x01(\rR\trecvCount\x12\x1d\n\nsend_count\x18\x04 \x01(\rR\tsendCount"<\n\x10TaskListResponse\x12(\n\x05tasks\x18\x01 \x03(\x0b2\x12.modulepb.TaskInfoR\x05tasks"\xa2\x01\n\rFFmpegRequest\x12\x16\n\x06action\x18\x01 \x01(\tR\x06action\x12\x1f\n\x0bdevice_name\x18\x02 \x01(\tR\ndeviceName\x12#\n\routput_format\x18\x03 \x01(\tR\x0coutputFormat\x12\x1f\n\x0boutput_path\x18\x04 \x01(\tR\noutputPath\x12\x12\n\x04time\x18\x05 \x01(\tR\x04time"\xb0\x02\n\nPtyRequest\x12\x12\n\x04type\x18\x01 \x01(\tR\x04type\x12\x1d\n\nsession_id\x18\x02 \x01(\tR\tsessionId\x12\x14\n\x05shell\x18\x03 \x01(\tR\x05shell\x12\x12\n\x04cols\x18\x04 \x01(\rR\x04cols\x12\x12\n\x04rows\x18\x05 \x01(\rR\x04rows\x12\x1d\n\ninput_data\x18\x06 \x01(\x0cR\tinputData\x12\x1d\n\ninput_text\x18\x07 \x01(\tR\tinputText\x128\n\x06params\x18\x08 \x03(\x0b2 .modulepb.PtyRequest.ParamsEntryR\x06params\x1a9\n\x0bParamsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01"\xd2\x02\n\x0bPtyResponse\x12\x1d\n\nsession_id\x18\x01 \x01(\tR\tsessionId\x12\x1f\n\x0boutput_data\x18\x02 \x01(\x0cR\noutputData\x12\x1f\n\x0boutput_text\x18\x03 \x01(\tR\noutputText\x12\x14\n\x05error\x18\x04 \x01(\tR\x05error\x12%\n\x0esession_active\x18\x05 \x01(\x08R\rsessionActive\x12\'\n\x0factive_sessions\x18\x06 \x03(\tR\x0eactiveSessions\x12?\n\x08metadata\x18\x07 \x03(\x0b2#.modulepb.PtyResponse.MetadataEntryR\x08metadata\x1a;\n\rMetadataEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01BHZFgithub.com/chainreactors/malice-network/helper/proto/implant/implantpbb\x06proto3'
+)

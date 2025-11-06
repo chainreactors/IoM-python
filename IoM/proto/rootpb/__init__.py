@@ -12,8 +12,10 @@ import typing
 
 import betterproto2
 import pydantic
+from google.protobuf.descriptor import Descriptor
 from pydantic.dataclasses import dataclass
 
+from ..google_proto_descriptor_pool import default_google_proto_descriptor_pool
 from ..message_pool import default_message_pool
 
 _COMPILER_VERSION = "0.9.0"
@@ -22,6 +24,11 @@ betterproto2.check_compiler_version(_COMPILER_VERSION)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Operator(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_ROOTPB_ROOT_PROTO_DESCRIPTOR.message_types_by_name["Operator"]
+
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
     )
@@ -48,6 +55,11 @@ default_message_pool.register_message("rootpb", "Operator", Operator)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Response(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return CLIENT_ROOTPB_ROOT_PROTO_DESCRIPTOR.message_types_by_name["Response"]
+
     status: "typing.Annotated[int, pydantic.Field(ge=-2**31, le=2**31 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_INT32)
     )
@@ -62,3 +74,8 @@ class Response(betterproto2.Message):
 
 
 default_message_pool.register_message("rootpb", "Response", Response)
+
+
+CLIENT_ROOTPB_ROOT_PROTO_DESCRIPTOR = default_google_proto_descriptor_pool.AddSerializedFile(
+    b'\n\x18client/rootpb/root.proto\x12\x06rootpb"\xb3\x01\n\x08Operator\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x0e\n\x02op\x18\x02 \x01(\tR\x02op\x12\x12\n\x04args\x18\x04 \x03(\tR\x04args\x124\n\x06params\x18\x05 \x03(\x0b2\x1c.rootpb.Operator.ParamsEntryR\x06params\x1a9\n\x0bParamsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x028\x01"T\n\x08Response\x12\x16\n\x06status\x18\x01 \x01(\x05R\x06status\x12\x1a\n\x08response\x18\x02 \x01(\tR\x08response\x12\x14\n\x05error\x18\x03 \x01(\tR\x05errorBDZBgithub.com/chainreactors/malice-network/helper/proto/client/rootpbb\x06proto3'
+)

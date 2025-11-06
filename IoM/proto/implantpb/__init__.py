@@ -14,9 +14,11 @@ import typing
 
 import betterproto2
 import pydantic
+from google.protobuf.descriptor import Descriptor
 from pydantic import model_validator
 from pydantic.dataclasses import dataclass
 
+from ..google_proto_descriptor_pool import default_google_proto_descriptor_pool
 from ..message_pool import default_message_pool
 
 _COMPILER_VERSION = "0.9.0"
@@ -25,6 +27,11 @@ betterproto2.check_compiler_version(_COMPILER_VERSION)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Empty(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_IMPLANT_PROTO_DESCRIPTOR.message_types_by_name["Empty"]
+
     pass
 
 
@@ -39,6 +46,11 @@ class Spite(betterproto2.Message):
     Oneofs:
         - body:
     """
+
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_IMPLANT_PROTO_DESCRIPTOR.message_types_by_name["Spite"]
 
     name: "typing.Annotated[str, pydantic.AfterValidator(betterproto2.validators.validate_string)]" = betterproto2.field(
         1, betterproto2.TYPE_STRING
@@ -292,6 +304,13 @@ default_message_pool.register_message("implantpb", "Spite", Spite)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Spites(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_IMPLANT_PROTO_DESCRIPTOR.message_types_by_name[
+            "Spites"
+        ]
+
     spites: "list[Spite]" = betterproto2.field(
         1, betterproto2.TYPE_MESSAGE, repeated=True
     )
@@ -302,6 +321,13 @@ default_message_pool.register_message("implantpb", "Spites", Spites)
 
 @dataclass(eq=False, repr=False, config={"extra": "forbid"})
 class Status(betterproto2.Message):
+    @betterproto2.staticproperty
+    @staticmethod
+    def DESCRIPTOR() -> Descriptor:
+        return IMPLANT_IMPLANTPB_IMPLANT_PROTO_DESCRIPTOR.message_types_by_name[
+            "Status"
+        ]
+
     task_id: "typing.Annotated[int, pydantic.Field(ge=0, le=2**32 - 1)]" = (
         betterproto2.field(1, betterproto2.TYPE_UINT32)
     )
@@ -325,3 +351,7 @@ default_message_pool.register_message("implantpb", "Status", Status)
 
 
 from .. import modulepb as _modulepb__
+
+IMPLANT_IMPLANTPB_IMPLANT_PROTO_DESCRIPTOR = default_google_proto_descriptor_pool.AddSerializedFile(
+    b'\n\x1fimplant/implantpb/implant.proto\x12\timplantpb\x1a\x1eimplant/implantpb/module.proto"\x07\n\x05Empty"O\n\x06Status\x12\x17\n\x07task_id\x18\x01 \x01(\rR\x06taskId\x12\x16\n\x06status\x18\x02 \x01(\x05R\x06status\x12\x14\n\x05error\x18\x03 \x01(\tR\x05error"\xa5\x1b\n\x05Spite\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x17\n\x07task_id\x18\x02 \x01(\rR\x06taskId\x12\x14\n\x05async\x18\x03 \x01(\x08R\x05async\x12\x18\n\x07timeout\x18\x04 \x01(\x04R\x07timeout\x12\x14\n\x05error\x18\x05 \x01(\rR\x05error\x12)\n\x06status\x18\x06 \x01(\x0b2\x11.implantpb.StatusR\x06status\x12(\n\x05empty\x18\n \x01(\x0b2\x10.implantpb.EmptyH\x00R\x05empty\x12\'\n\x05block\x18\x0b \x01(\x0b2\x0f.modulepb.BlockH\x00R\x05block\x12!\n\x03ack\x18\r \x01(\x0b2\r.modulepb.ACKH\x00R\x03ack\x12(\n\x04task\x18\x0e \x01(\x0b2\x12.modulepb.TaskCtrlH\x00R\x04task\x126\n\rsleep_request\x18\x0f \x01(\x0b2\x0f.modulepb.TimerH\x00R\x0csleepRequest\x12$\n\x04init\x18\x10 \x01(\x0b2\x0e.modulepb.InitH\x00R\x04init\x12*\n\x06switch\x18\x11 \x01(\x0b2\x10.modulepb.SwitchH\x00R\x06switch\x121\n\ttask_info\x18\x12 \x01(\x0b2\x12.modulepb.TaskInfoH\x00R\x08taskInfo\x129\n\ttask_list\x18\x13 \x01(\x0b2\x1a.modulepb.TaskListResponseH\x00R\x08taskList\x12-\n\x07sysinfo\x18\x14 \x01(\x0b2\x11.modulepb.SysInfoH\x00R\x07sysinfo\x120\n\x08register\x18\x15 \x01(\x0b2\x12.modulepb.RegisterH\x00R\x08register\x12$\n\x04ping\x18\x16 \x01(\x0b2\x0e.modulepb.PingH\x00R\x04ping\x12-\n\x07suicide\x18\x17 \x01(\x0b2\x11.modulepb.SuicideH\x00R\x07suicide\x12-\n\x07request\x18\x18 \x01(\x0b2\x11.modulepb.RequestH\x00R\x07request\x120\n\x08response\x18\x19 \x01(\x0b2\x12.modulepb.ResponseH\x00R\x08response\x12@\n\x0eexecute_binary\x18\x1a \x01(\x0b2\x17.modulepb.ExecuteBinaryH\x00R\rexecuteBinary\x12C\n\x0fbinary_response\x18\x1b \x01(\x0b2\x18.modulepb.BinaryResponseH\x00R\x0ebinaryResponse\x127\n\x0bload_module\x18\x1f \x01(\x0b2\x14.modulepb.LoadModuleH\x00R\nloadModule\x12-\n\x07modules\x18  \x01(\x0b2\x11.modulepb.ModulesH\x00R\x07modules\x124\n\nload_addon\x18# \x01(\x0b2\x13.modulepb.LoadAddonH\x00R\tloadAddon\x12*\n\x06addons\x18$ \x01(\x0b2\x10.modulepb.AddonsH\x00R\x06addons\x12=\n\rexecute_addon\x18% \x01(\x0b2\x16.modulepb.ExecuteAddonH\x00R\x0cexecuteAddon\x12<\n\x0bwmi_request\x18& \x01(\x0b2\x19.modulepb.WmiQueryRequestH\x00R\nwmiRequest\x12J\n\x12wmi_method_request\x18\' \x01(\x0b2\x1a.modulepb.WmiMethodRequestH\x00R\x10wmiMethodRequest\x127\n\x0bls_response\x18e \x01(\x0b2\x14.modulepb.LsResponseH\x00R\nlsResponse\x12=\n\rchown_request\x18f \x01(\x0b2\x16.modulepb.ChownRequestH\x00R\x0cchownRequest\x12:\n\x0cexec_request\x18h \x01(\x0b2\x15.modulepb.ExecRequestH\x00R\x0bexecRequest\x12=\n\rexec_response\x18i \x01(\x0b2\x16.modulepb.ExecResponseH\x00R\x0cexecResponse\x12@\n\x0eupload_request\x18j \x01(\x0b2\x17.modulepb.UploadRequestH\x00R\ruploadRequest\x12F\n\x10download_request\x18k \x01(\x0b2\x19.modulepb.DownloadRequestH\x00R\x0fdownloadRequest\x12I\n\x11download_response\x18l \x01(\x0b2\x1a.modulepb.DownloadResponseH\x00R\x10downloadResponse\x12F\n\x10netstat_response\x18m \x01(\x0b2\x19.modulepb.NetstatResponseH\x00R\x0fnetstatResponse\x127\n\x0bps_response\x18n \x01(\x0b2\x14.modulepb.PsResponseH\x00R\npsResponse\x12@\n\x0ebypass_request\x18o \x01(\x0b2\x17.modulepb.BypassRequestH\x00R\rbypassRequest\x12C\n\x0fexecute_command\x18p \x01(\x0b2\x18.modulepb.ExecuteCommandH\x00R\x0eexecuteCommand\x12I\n\x11ifconfig_response\x18v \x01(\x0b2\x1a.modulepb.IfconfigResponseH\x00R\x10ifconfigResponse\x12:\n\x0ccurl_request\x18w \x01(\x0b2\x15.modulepb.CurlRequestH\x00R\x0bcurlRequest\x12P\n\x14key_exchange_request\x18x \x01(\x0b2\x1c.modulepb.KeyExchangeRequestH\x00R\x12keyExchangeRequest\x12S\n\x15key_exchange_response\x18y \x01(\x0b2\x1d.modulepb.KeyExchangeResponseH\x00R\x13keyExchangeResponse\x12?\n\x10registry_request\x18z \x01(\x0b2\x12.modulepb.RegistryH\x00R\x0fregistryRequest\x12V\n\x16registry_write_request\x18{ \x01(\x0b2\x1e.modulepb.RegistryWriteRequestH\x00R\x14registryWriteRequest\x12C\n\x10schedule_request\x18| \x01(\x0b2\x16.modulepb.TaskScheduleH\x00R\x0fscheduleRequest\x12P\n\x12schedules_response\x18} \x01(\x0b2\x1f.modulepb.TaskSchedulesResponseH\x00R\x11schedulesResponse\x12E\n\x11schedule_response\x18~ \x01(\x0b2\x16.modulepb.TaskScheduleH\x00R\x10scheduleResponse\x12B\n\x0fservice_request\x18\x7f \x01(\x0b2\x17.modulepb.ServiceConfigH\x00R\x0eserviceRequest\x12J\n\x11services_response\x18\x80\x01 \x01(\x0b2\x1a.modulepb.ServicesResponseH\x00R\x10servicesResponse\x12?\n\x10service_response\x18\x81\x01 \x01(\x0b2\x11.modulepb.ServiceH\x00R\x0fserviceResponse\x12>\n\rrunas_request\x18\x82\x01 \x01(\x0b2\x16.modulepb.RunAsRequestH\x00R\x0crunasRequest\x124\n\tgetsystem\x18\x83\x01 \x01(\x0b2\x13.modulepb.GetSystemH\x00R\tgetsystem\x12+\n\x06inject\x18\x84\x01 \x01(\x0b2\x10.modulepb.InjectH\x00R\x06inject\x124\n\x0cpipe_request\x18\x8c\x01 \x01(\x0b2\x0e.modulepb.PipeH\x00R\x0bpipeRequest\x12T\n\x15enum_drivers_response\x18\x8d\x01 \x01(\x0b2\x1d.modulepb.EnumDriversResponseH\x00R\x13enumDriversResponse\x12A\n\x0effmpeg_request\x18\x96\x01 \x01(\x0b2\x17.modulepb.FFmpegRequestH\x00R\rffmpegRequest\x128\n\x0bpty_request\x18\x97\x01 \x01(\x0b2\x14.modulepb.PtyRequestH\x00R\nptyRequest\x12;\n\x0cpty_response\x18\x98\x01 \x01(\x0b2\x15.modulepb.PtyResponseH\x00R\x0bptyResponseB\x06\n\x04body"2\n\x06Spites\x12(\n\x06spites\x18\x01 \x03(\x0b2\x10.implantpb.SpiteR\x06spitesBHZFgithub.com/chainreactors/malice-network/helper/proto/implant/implantpbb\x06proto3'
+)

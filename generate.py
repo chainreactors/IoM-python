@@ -52,17 +52,14 @@ def generate_proto_files(proto_root="../../proto", output_dir="./IoM/proto"):
 
         print(f"Processing: {rel_path}")
 
-        # Create package directory
-        package_dir = output_dir / rel_path.parent
-        package_dir.mkdir(parents=True, exist_ok=True)
-
-        # Run betterproto2
+        # Run betterproto2 (it will create directories as needed)
         cmd = [
             sys.executable,
             "-m", "grpc_tools.protoc",
             f"-I{proto_root}",
             f"--python_betterproto2_out={output_dir}",
             "--python_betterproto2_opt=pydantic_dataclasses",
+            "--python_betterproto2_opt=google_protobuf_descriptors",
             "--python_betterproto2_opt=client_generation=async_sync",
             str(proto_file),
         ]
